@@ -1,0 +1,35 @@
+aprsdigi:
+  - set up sf.net
+  - document how to use aprsd UDP port support
+  - make aprs-is compatible (see aprsd/doc/q.html) or just use aprsd?
+  - suppress loops/dupes per-interface???  Currently globally.
+  - make log file list rx/tx port and timestamp?
+  - add "tcp:" interface types (both initiator/client and responder/server).
+    netcat ./nc -v -u -p 14439 -l | ./nc -v -l -p 14439 localhost 
+  - add file: and/or tty: intf type to support non-KISS-capable TNCs 
+    and broken KISS implentations like TH-D7A (this is getting gross).
+  - support more than 8 digipeaters in cooked mode?
+  - digipeat other than UI frames (digi_ned && requested for opentrac pid 99)
+  - Combine unproto() and parsecalls().
+  - Figure out why I can't just use standard full_sockaddr instead of
+    struct ax_calls.
+  - add maxhops for TRACEn-n. (I don't remember what this means!)
+  - assure 100% alignment with APRS Protocol Spec 1.0
+  - add a real config file instead of hokey command line switches.
+  - add IPv6 multicast, IPv4 SSM?
+  - Implement HOME: (or did this idea die out?)
+  - Implement compressed and/or decompressed GPS strings and posits.
+  - Look at my notes from DCC proceedings APRS papers.
+
+mic_e.c:
+  - looked at Dale's changes but they *broke* parsing of D7, mic_e pkts???
+  - Add PIC-E support: /P>mon
+  - Is this necessary anymore given aprsd?  Look at putting kernel ax25
+    support into aprsd.
+  - Try to understand javaGate, get the latest version, and see if it's
+    still OK with Alan to bundle it with this distribution.
+
+General:
+  - Make a new distro rpm and tarball.
+
+

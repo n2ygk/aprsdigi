@@ -1,0 +1,19 @@
+.TH FIFOWRITE 8 "4 April 2003"
+.SH NAME
+fifowrite \- test program for aprsdigi.
+.SH SYNOPSIS
+.nf
+.BI "fifowrite " filename
+.fi
+.SH DESCRIPTION
+.PP
+.I Fifowrite
+is useful for testing aprsdigi.  Lines of text read from stdin are
+written as a Unix datagram to the fifo at
+.I filename
+which is expected to have been opened for reading by
+.BI "aprsdigi \-p unix:" filename,callsign,alias...
+.SH AUTHOR
+.nf
+Alan Crosswell, n2ygk@weca.org
+.fi

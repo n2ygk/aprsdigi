@@ -1,0 +1,46 @@
+Announcing N2YGK's Linux aprsdigi-2.4.4.		February, 2004
+
+Release 2.4.4 of N2YGK's advanced APRS digipeater is now available for
+free under the terms of the GNU Public License (GPL) at
+ftp://ftp.tapr.org/aprssig/linux/aprsdigi-2.4.4.tgz.
+
+This release has the following new features:
+
+As well as these existing features:
+- Ability to specify a list of ports that get sent a verbatim duplicate copy
+  of all packets received on a given port.  Useful for "reflecting" what's
+  heard on an RF port to a local LAN for instance.
+
+Added in 2.4.3:
+- UDP/IP (v4 and v6) unicast and multicast (ASM) support.  Useful for 
+  connecting aprsdigi's over the Internet, WLANs, etc.
+  (Note: this is *not* TCP support as used by APRS-IS, aprsd, etc.)
+  Both transparent and "3rd party" tunneling are supported.
+- Budlist to permit/deny digipeating of traffic for individuals or groups of
+  AX.25 and IP sources.  IP budlists are helpful when using IP multicast!
+- Interfaces may be set to transmit- or receive-only.
+- Interfaces may be set to disable retransmission of received packets on
+  the same interface (one-armed routing).  
+- Unix FIFO supported as an interface type.  Mostly useful for debugging.
+- Bug fixed that caused aprsdigi to crash upon TRACEn-n callsign insertion
+  when the digipeater list was full.
+
+Added in earlier releases:
+- Digipeater callsign substitution (e.g. RELAY replaced w/N0CLU-12).
+- WIDE, WIDEn-n, TRACE, and TRACEn-n.
+- As many radio interfaces as you can plug into your Linux machine
+  with flexible gatewaying between them.
+- Special handling for Mic-Encoder, Kenwood TH-D7, and TheNet X1J4, including
+  SSID-based digipeating.
+- Suppression of duplicate and looping packets.
+- Works with Linux 2.4 kernel AX.25 network stack.  This means any AX.25
+  interface supported by the kernel will work, not just a TNC2 clone.
+  Examples include all the BAYCOM interfaces (BAYPAC, PICPAR, PICSER, etc.),
+  soundcards, 8530 SCC cards, any serial port KISS TNC, etc.
+
+Aprsdigi is Copyright (c) 1996,1997,1999,2001,2002,2003,2004 Alan Crosswell
+
+n2ygk@weca.org
+
+
+

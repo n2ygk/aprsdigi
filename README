@@ -1,0 +1,40 @@
+Linux aprsdigi and aprsmon.
+Copyright (c) 1996,1997,1998,1999,2001  E. Alan Crosswell
+Released under the GNU Public License.  See the file COPYING for details.
+
+Alan Crosswell, N2YGK
+n2ygk@weca.org
+revised November 28, 2001
+
+Where to find the latest releases:
+
+The official places where I put new versions are:
+
+   http://www.cloud9.net/~alan/ham/aprs/
+   ftp://ftp.tapr.org/aprssig/linux/
+
+Others may mirror this stuff elsewhere, but I only promise that the
+latest will be at the above two sites.
+
+If you are not a member of Tucson Amateur Packet Radio (TAPR), consider
+joining!  See www.tapr.org
+
+See the aprsdigi.8 and aprsmon.1 man pages.  Aprsdigi is an intelligent
+digipeater (see the APRS Protocol Reference, ISBN 0-9644707-6-4, at
+http://www.tapr.org).
+
+Aprsmon enables a rudimentary TNC monitor as expected by Steve Dimse's
+javAPRS applet.  If you want to build the aprsmon without saving up
+stale packets in a shared memory segment, give the --disable-shm
+option to configure.  However, you should probably use aprsd instead,
+since it is a more complete implementation.  See the AX25-HOWTO
+or http://sourceforge.net/projects/aprsd/.
+
+See the file INSTALL for installation instructions.
+
+
+
+
+
+
+

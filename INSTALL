@@ -1,0 +1,38 @@
+N2YGK's aprsdigi 2.4.3 installation instructions
+----------------------------------------------
+
+Alan Crosswell, n2ygk@weca.org
+
+PREREQUISITES:
+-------------
+
+1. You must have a Linux 2.4.x kernel with AX.25 and "Packet socket" configured
+   (CONFIG_AX25 and CONFIG_PACKET) along with the applicable low-level
+   AX.25 drivers (CONFIG_MKISS, CONFIG_BAYCOM*, CONFIG_SOUNDMODEM*, etc.)
+   This release of my software has been tested with Linux 2.4 and GNU libc
+   2 (glibc) on a Red Hat 8.0 distribution.  See the AX25-HOWTO for 
+   instructions:  http://www.linuxdoc.org/HOWTO/AX25-HOWTO.html
+
+2. You need libax25.a and the corresponding include files.  These are
+   part of the libax25-0.0.7 (or later) package.  You also will need
+   ax25-tools and you might as well get ax25-apps too.  The AX25-HOWTO
+   tells how to get and install these as well.
+
+INSTALLING FROM SOURCES:
+-----------------------
+
+First make sure you have libax25 installed.
+
+Then untar and build aprsdigi:
+
+  gunzip -c aprsdigi-2.4.3.tar.gz | tar xfz -
+  cd aprsdigi-2.4.3
+  ./configure
+  make
+  make install
+
+CONFIGURING
+-----------
+
+See the man page, aprsdigi.8.
+

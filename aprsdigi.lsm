@@ -1,0 +1,23 @@
+Begin3
+Title:		aprsdigi
+Version:	2.4.1
+Entered-date:	28 Dec 01
+Description:	Aprsdigi is a specialized Amateur Packet Radio (AX.25) 
+		UI-frame digipeater for the Automatic Position Reporting 
+		System, APRS(tm).  
+
+		Aprsmon collects and displays standard AX.25 UI text
+		frames in a format similar to that output by a standard 
+		TNC in "Monitor ON" mode and is intended to be used with
+		programs like javAPRS which wish to see a TNC data
+		stream over a TCP connection.
+Keywords:	AX.25 APRS Amateur Radio
+Author:		n2ygk@weca.org (Alan Crosswell)
+Maintained-by:	n2ygk@weca.org (Alan Crosswell)
+Primary-site:	http://www.cloud9.net/~alan/ham/aprsdigi-2.4.1.tar.gz
+Alternate-site:	ftp://ftp.tapr.org/aprssig/linux/aprsdigi-2.4.1.tar.gz
+Original-site:
+Copying-policy:	GPL.
+
+End
+

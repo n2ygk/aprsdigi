@@ -1,0 +1,86 @@
+* Changes in aprsdigi-2.4.4, April 2003:
+
+
+* Changes in aprsdigi-2.4.3, April 2003:
+  - Add support for IP/UDP interface, including IPv4 and IPv6 unicast and
+    IPv4 any-source multicast (until I learn how to do SSM and v6 multicast).
+  - Add Unix fifo interface and two test programs, fiforead and fifowrite.
+    Mostly useful for debugging.
+  - "-p port:call...." for ax25 ports is deprecated.  Use "-p ax25:port:..."
+  - Add interfaces options to toggle TX-enable, RX-enable and don't retransmit
+    on received interface (e.g. for pt-to-pt and IP interface).
+  - Add budlist (permit/deny access lists).
+  - parse_cooked_ax25() and gen_cooked_ax25() added to libax25ext.  Supports
+    parsing TNC2 and AEA formats.  Generates TNC2 format.
+  - Corrected destination SSID routing to always work, not just for mic-E
+    packets (per APRS Spec 1.02 Ch. 3 p. 12)
+  - Added 3rd-party tunneling/de-tunneling (-3) per APRS Spec 1.02 Ch 17.
+    I don't understand it, but it's there now.  I use transparent 
+    tunneling (-0)!
+  - Really fix the fencepost error that I claimed I fixed in 2.4.2!
+	
+* Changes in aprsdigi-2.4.2, June 2002:
+  - Fix fencepost error in expansion of TRACEn-n that was causing a seg fault.
+
+* Changes in aprsdigi-2.4.1, December 2001:
+  - Fix loop killing (-L) to actually drop looping packets and not other
+    random packets!
+
+* Changes in aprsdigi-2.4.0, November 2001:
+  - Apply patches from Hamish Moffatt <hamish@rising.com.au> to update to
+    the latest libax25.  
+  - Change keep default to 28 seconds to match the documented typical
+    value per p.11 of the APRS Protocol Spec 1.0. 
+  - Don't digipeat packets that my station originated and then got repeated
+    back to me (e.g. beacon -d "APRS via WIDE WIDE" should not be digi'd).
+    (Thanks for noticing this one Arte.)
+  - Make other cosmetic changes to eliminate need to patch libax25.
+  - Rename a couple of functions.
+  - Built and tested under a 2.4 kernel.  Renumber the version to reflect
+    the kernel version it runs with.
+
+* Changes in aprsdigi-2.0, March 1999:
+  General aprsmon and aprsdigi changes:
+  - Fix incorrect order of Mic-E longitude calculation which resulted in, 
+    among other errors, a zero longitude displaying as 19060.00W.
+  - Corrections and changes to Mic-E -> "MIM" translations as requested
+    by Bob Bruninga, including support for Kenwood TH-D7.
+  - Fix T#MIC telemetry
+  - Strip TheNet X1J4 BTEXT prefix, making an X1J4 node's beacon look
+    like a regular APRS beacon.
+  - Rename the package from aprsmon to aprsdigi-2.0 since the dominant
+    useful code in the package is now the digi.  arpsmon should probably
+    be replaced by WA4DSY's aprsd.
+  - Changes for Linux kernel 2.2 (AF_PACKET instead of AF_INET).
+  - Changes for GNU libc 2 (glibc, a/k/a libc6).
+  - Use autoconf and automake.
+
+  aprsdigi-specific changes:
+  - Bring aprsdigi WIDE flooding implementation into alignment with current
+    WIDEn-n definition.
+  - Add real control of how to interconnect (gate) multiple interfaces:
+    - Tie each of my callsigns/aliases to an interface:
+      replace -rxa switches with -p port1:alias,alias... -p port2:alias...
+    - routing between interfaces now based on next-hop callsign.
+    - one-to-many relationship supported by giving the same alias to multiple
+      interfaces.  Each interface with the matching next-hop alias will
+      transmit, with per-interface customizations (e.g. MYCALL substitution
+      is based on the callsign of the interface).
+  - Make tag/idinterval, reformatting of Mic-E and X1J4, etc. selectable
+    per-interface (rather than global) options.
+  - Implement TRACE: Note that TRACEn-n vs. plain TRACE do
+    different things: TRACEn-n *inserts* calls into the digipath while
+    decrementing ssid. e.g.:
+	RELAY*,TRACE3-3
+	RELAY,N2YGK-7*,TRACE3-2
+	RELAY,N2YGK-7,WB2ZII*,TRACE3-1
+	RELAY,N2YGK-7,WB2ZII,N2MH-15*,TRACE3
+	RELAY,N2YGK-7,WB2ZII,N2MH-15,WA2YSM-14*
+    "Plain Old" TRACE just does a one-for-one mycall substitution.
+  - Kill looping packets (-L option):
+	RELAY*,WIDE,WIDE,WIDE
+	RELAY,N2YGK-7*,WIDE,WIDE
+	RELAY,N2YGK-7,WIDE*,WIDE
+			     ^---- normally n2ygk-7 would respond to this,
+	but, by finding one of mycall earlier in the path, I know to ignore it.
+
