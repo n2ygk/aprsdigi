@@ -1047,7 +1047,7 @@ xmit(struct stuff *s, struct interface_list *dupelist)
 	else
 	  of = fopen(Logfile,"a");
 	print_it(of,&calls,op-(vecl[n]+l->i->taglen),vecl[n]+l->i->taglen);
-	if (of != stdout)
+	if (of != stdout && of != stderr)
 	  fclose(of);
       }
       if (Verbose) {
@@ -1248,7 +1248,7 @@ int sig;
 	    i->stats.tx,i->stats.digi,i->stats.flood,i->stats.ssid,
 	    i->stats.ids);
   }
-  if (of != stdout)
+  if (of != stdout && of != stderr)
     fclose(of);
   if (sig >= 0)
     signal(sig,print_stats);
