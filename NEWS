@@ -1,15 +1,21 @@
-Announcing N2YGK's Linux aprsdigi-2.4.4.		February, 2004
+Announcing N2YGK's Linux aprsdigi-2.4.4.		March, 2004
 
 Release 2.4.4 of N2YGK's advanced APRS digipeater is now available for
 free under the terms of the GNU Public License (GPL) at
-ftp://ftp.tapr.org/aprssig/linux/aprsdigi-2.4.4.tgz.
+ftp://ftp.tapr.org/aprssig/linux/aprsdigi-2.4.4.tgz and
+http://aprsdigi.sourceforge.net.
 
 This release has the following new features:
 
-As well as these existing features:
+- Aprsdigi is now a sourceforge.net project.  Please visit aprsdigi.sf.net
+  and sign up to be a developer or join the users or developers mailing lists.
+- Short (-s) command line options replaced with long ones (--long).  Short
+  options are now deprecated and may disappear in a future release.
 - Ability to specify a list of ports that get sent a verbatim duplicate copy
   of all packets received on a given port.  Useful for "reflecting" what's
-  heard on an RF port to a local LAN for instance.
+  heard on an RF port to a local LAN for instance.  This is different from
+  APRS-IS (e.g. aprsd) since the data is sent with UDP (multicast or unicast).
+  Use with caution (or not at all) on RF ports.
 
 Added in 2.4.3:
 - UDP/IP (v4 and v6) unicast and multicast (ASM) support.  Useful for 
@@ -25,7 +31,7 @@ Added in 2.4.3:
 - Bug fixed that caused aprsdigi to crash upon TRACEn-n callsign insertion
   when the digipeater list was full.
 
-Added in earlier releases:
+Along with these features:
 - Digipeater callsign substitution (e.g. RELAY replaced w/N0CLU-12).
 - WIDE, WIDEn-n, TRACE, and TRACEn-n.
 - As many radio interfaces as you can plug into your Linux machine
@@ -38,9 +44,5 @@ Added in earlier releases:
   Examples include all the BAYCOM interfaces (BAYPAC, PICPAR, PICSER, etc.),
   soundcards, 8530 SCC cards, any serial port KISS TNC, etc.
 
-Aprsdigi is Copyright (c) 1996,1997,1999,2001,2002,2003,2004 Alan Crosswell
-
-n2ygk@weca.org
-
-
-
+Aprsdigi is Copyright (c) 1996,1997,1999,2001,2002,2003,2004 Alan Crosswell,
+  n2ygk@weca.org

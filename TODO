@@ -1,6 +1,11 @@
 aprsdigi:
-  - set up sf.net
-  - document how to use aprsd UDP port support
+  - set up sf.net:
+    - CVS import (done)
+    - aprsdigi-users && aprsdigi-devel mailing lists
+    - release files/tarball
+    - aprsdigi.sf.net web page
+  - document how to use aprsd UDP port support or whether it makes sense
+    to do so vs. just running aprsd in parallel.
   - make aprs-is compatible (see aprsd/doc/q.html) or just use aprsd?
   - suppress loops/dupes per-interface???  Currently globally.
   - make log file list rx/tx port and timestamp?
@@ -24,10 +29,7 @@ aprsdigi:
 mic_e.c:
   - looked at Dale's changes but they *broke* parsing of D7, mic_e pkts???
   - Add PIC-E support: /P>mon
-  - Is this necessary anymore given aprsd?  Look at putting kernel ax25
-    support into aprsd.
-  - Try to understand javaGate, get the latest version, and see if it's
-    still OK with Alan to bundle it with this distribution.
+  - Is this necessary anymore given aprsd?
 
 General:
   - Make a new distro rpm and tarball.
