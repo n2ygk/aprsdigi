@@ -1,9 +1,9 @@
-.TH APRSDIGI 8 "4 April 2003"
+.TH APRSDIGI 8 "25 February 2004"
 .SH NAME
 aprsdigi \- APRS(\*(Tm) digipeater
 .SH SYNOPSIS
 .nf
-.B aprsdigi [-CcDLMXv30] [-n|s|e|w path] [-fF call] [-t tag] [-k secs] [-l logfile] [-i interval] [-o r|R|t|T|s|S] [-p proto:port...:alias1,alias2...]
+.BI "aprsdigi " options
 .fi
 .SH DESCRIPTION
 .PP
@@ -71,14 +71,14 @@ TheNet X1J4 node beacon text translation (removal of the
 .PP
 .SH "GENERAL OPTIONS"
 .TP 10
-.BI "\-v"
+.BI "\-v \--verbose"
 Produce verbose debugging output.
 .TP 10
-.BI "\-T"
+.BI "\-T \--testing"
 Test mode: listen to my packets too.  This mode is useful for off-air
 experimentation and configuration testing.  Do not use it on-air.
 .TP 10
-.BI "\-D"
+.BI "\-D \--kill_dupes"
 Suppress Duplicate packets.  Remembers
 duplicate packets for the number of seconds given by the -k option and
 will not repeat them more than once.  This reduces conjestion caused
@@ -86,7 +86,7 @@ when several digipeaters that share a common flooding alias (e.g. WIDE)
 have overlapping footprints, causing geometric duplication
 of packets addressed via \(lqWIDE,WIDE\(rq for example.
 .TP 10
-.BI "\-L"
+.BI "\-L \--kill_loops"
 Suppress Looping packets.  Similar in function to duplicate packet
 suppression, but looks back through the list of already digipeated callsigns
 in the packet's digipeat list and kills any packets that list a callsign
@@ -95,35 +95,35 @@ belonging to this
 Note that only real callsigns are compared.  Generic flooding aliases are not.
 Therefore, loop detection is only useful when callsign substitution is used.
 .TP 10
-.BI "\-V"
+.BI "\-V \--version"
 Print program version and exit.
 .TP 10
-.BI "\-n|s|e|w"
+.BI "\-n|s|e|w \--north|south|east|west"
 Set North|South|East|West SSID directional path.
 .TP 10
-.BI "\-d"
+.BI "\-d \--digipath"
 Set SSID omnidirectional next-hops when operating in a non flooding
 network (e.g. when WIDEn-n is not an option).
 .TP 10
-.BI "\-f"
+.BI "\-f \--flood"
 Set flooding alias.  Use \(lq-f WIDE\(rq to enable WIDEn-n flooding.
 Use -f multiple times to define several flooding aliases.
 .TP 10
-.BI "\-F"
+.BI "\-F \--trace"
 Set flooding trace callsign.  Use \(lq-F TRACE\(rq to enable TRACE and
 TRACEn-n flooding. Use -F multiple times to define several trace aliases.
 .TP 10
-.BI "\-k secs"
+.BI "\-k \--keep secs"
 Remember old packets for this long for duplicate packet detection.
 Default is 28 seconds.
 .TP 10
-.BI "\-l file"
+.BI "\-l \--logfile file"
 Log digipeated packets to this file.
 .SH "PER-INTERFACE OPTIONS"
 Put these options
 .I before
 each
-.BI "\-p"
+.BI "\-p \--interface"
 to set new values as needed.  The values you set are remembered for
 subsequent 
 .BI "\-p's"
@@ -133,36 +133,36 @@ once, before the first
 But you have to remember to unset an option if you don't want it to
 apply to subsequent interfaces.
 .TP 10
-.BI "\-C (-c)"
+.BI "\-C (-c) \--[no]subst_mycall"
 Do (not) perform callsign substitution.  When enabled, aliases are
 replaced with the interface's callsign when repeated.
 .TP 10
-.BI "\-M (-m)"
+.BI "\-M (-m) \--[no]mice_xlate"
 Do (not) perform Mic-E to MIM translation.  When enabled, compressed Mic-E
 reports are expanded into one MIM-style position report packet and optionally
 a second telemetry packet if telemetry was supplied in the Mic-E packet.
 .TP 10
-.BI "\-X (-x)"
+.BI "\-X (-x) \--[no]x1j4_xlate"
 Do (not) perform X1J4 translation.  When enabled, the leading 
 \(lqTheNet X1J4 (alias)\(rq text is removed when digipeated.  This allows
 non-compliant APRS implementations to detect an APRS position report in
 an X1J4 beacon.
 .TP 10
-.BI "\-i secs"
+.BI "\-i \--idinterval secs"
 Seconds between ID transmissions.  Set to 0 to disable IDs on this interface.
 Default is 570 (9 minutes 30 seconds).  IDs are only sent if the interface
 transmitted anything since the last ID.  ID packets are addressed to the 
 \(lqID\(rq callsign, have no digipeat path, and list the callsign and aliases
 for the interface the ID is being transmitted on.
 .TP 10
-.BI "\-t text"
+.BI "\-t \--tag text"
 Text to append to received packets.  Use 
 .I "\-t -"
 to reset to empty.  Use this, for example, when gatewaying Mic-E packets
 from a voice repeater to the APRS net frequency to indicate where the report
 originated.
 .TP 10
-.B "\-3"
+.B "\-3 \--3rdparty"
 Enable 3rd party tunneling.  Packets tunneled 
 .I to
 a 3rd party interface are sent with the unused digipeaters removed from
@@ -171,7 +171,7 @@ the digipeater list.  Packets tunneled
 a 3rd party interface have the Source Path Header prepended to the
 packet payload prefixed by the "}" character.
 .TP 10
-.B "\-0"
+.B "\-0 \--no3rdparty"
 Enable transparent tunneling. No special tricks are done when sending to
 or receiving from a tunneled interface.  If the interface does not natively
 support AX.25 addresses (from-call, to-call, and digipeater list), then
@@ -179,79 +179,76 @@ the address header is prepended to the payload in "cooked" format. Likewise,
 a cooked prepended header is stripped from a cooked interface and put back
 in the AX.25 address when going from a non-AX.25 to AX.25 interface.
 .TP 10
-.BI "\-o r"
+.BI "\-o r \--norx"
 Disable receiving on the following interface(s).
 .TP 10
-.BI "\-o R"
+.BI "\-o R \--rx"
 Enable receiving on the following interface(s).
 .TP 10
-.BI "\-o t"
+.BI "\-o t \--notx"
 Disable transmitting on the following interface(s).
 .TP 10
-.BI "\-o T"
+.BI "\-o T \--tx"
 Enable transmitting on the following interface(s).
 .TP 10
-.BI "\-o s"
+.BI "\-o s \--notxsame"
 Disable retransmitting a received packet on the same interface.
 .TP 10
-.BI "\-o S"
+.BI "\-o S \--txsame"
 Enable retransmitting a received packet on the same interface.
 .TP 10
-.BI "\-o d"
-Disable duplicating received packets without modification.
+.BI "\-o d \--duplicate intf"
+Duplicate received packets without modification to the given interface (port).
 .TP 10
-.BI "\-o D"
-Enable duplicating received packets without modification.
-.TP 10
-.BI "-p ax25:port:alias1,alias2,..."
+.BI "-p \--interface ax25:port:alias1,alias2,..."
 AX25 interface name (port) and optional list of aliases.
 The primary callsign is obtained from the interface's configuration.
 (See ifconfig(8)).
 .TP 10
-.BI "-p udp:host/port/ttl:alias1,alias2,..."
+.BI "-p \--interface udp:host/port/ttl:alias1,alias2,..."
 IP host name or address and list of aliases.  IP addresses may be IPv4
 unicast or multicast or IPv6 unicast.
 The primary callsign is obtained from the first alias.
 .TP 10
-.BI "-p unix:filename:alias1,alias2,..."
+.BI "-p \--interface unix:filename:alias1,alias2,..."
 Unix file and list of aliases.  Useful for debugging by setting up
 a simulated APRS network on one machine.  You may want to make your
 FIFOs explicitly transmit- or receive-only to avoid confusion.
 The primary callsign is obtained from the first alias.
 .TP 10
-.BI "\-B|b"
+.BI "\-B|b \--[no]bud"
 .I addr
 Is similar to a TNC-2's BUDLIST.  Use 
-.BI "\-B"
+.BI "\-B \--bud"
 to accept or 
-.BI "\-b"
+.BI "\-b \--nobud"
 to ignore packets from a sender or group of senders.  Budlists are
 attached to each interface and can be reset with
-.BI "\-B \-"
+.BI "\--bud \-"
 .br
 You can set up a global budlist once, or per-interface budlists.
 The format of
 .I addr
 varies based on the interface type:
 .HP
-.BI "\-B ax25:callsign-ssid"
+.BI "\--bud ax25:callsign-ssid"
 matches only a given digipeater callsign and SSID.  For example,
 \-B ax25:n0clu-14.
 .HP
-.BI "\-B ax25:callsign" 
+.BI "\--bud ax25:callsign" 
 matches all SSIDs for the given callsign.  For example
 \-B ax25:n0clu.
 .HP
-.BI "\-B ip:hostname" 
+.BI "\--bud ip:hostname" 
 matches one Internet host name (IPv6 or IPv4).  For example
 \-B ip:n0clu.ampr.net
 .HP
-.BI "\-B ip:address/maskbits" 
+.BI "\--bud ip:address/maskbits" 
 matches all IP addresses that have the given prefix.  For example
-\-B ip:44.0.0.0/8 matches the entire class-A network.
-\-B ip:192.168.0.0/16 matches the entire class-B network.
-\-B ip:fe80::201:3ff:fe9a:38c6 matches a single IPv6 host.
-\-B ip:2002:905::/32 matches the 32-bit IPv6 prefix.
+\--bud ip:44.0.0.0/8 matches the entire class-A network.
+\--bud ip:192.168.0.0/16 matches the entire class-B network.
+\--bud ip:fe80::201:3ff:fe9a:38c6 matches a single IPv6 host.
+\--bud ip:2002:905::/32 matches the 32-bit IPv6 prefix.
 .PP
 .SH "RUNTIME CONTROLS"
 .PP
@@ -265,7 +262,7 @@ packets received and how many of those where ignored, duplicates, loops,
 mic-E formatted;  packets transmitted and how many of those where
 conventional digipeats, flooding digipeats (WIDEn-n), SSID-based digipeats,
 and IDs.  If a log file was specified with the 
-.B "\-l"
+.B "\-l \--logfile"
 option, then the statistics are written to that file.  Otherwise they are
 written to stderr.
 
@@ -288,7 +285,7 @@ would be repeated with a modifed destination of \(lqAPRS VIA WIDE3-3\(rq
 (in a network that supports WIDEn-n flooding).
 A packet sent to \(lqAPRS-11\(rq would be repeated to the West unproto
 path, as defined with the
-.B -w
+.B \--west
 option.  A table of SSID values and their paths follows:
 .sp
 .nf
@@ -323,22 +320,22 @@ the burden from the mobile user.
 .I Aprsdigi
 also fits into a non WIDEn-n network by using the same algorithm for
 selection of subset of digipeaters from a list supplied with the
-.B -d
+.B \--digipath
 option as the MIC-E.  That is, SSIDs of 1, 2 or 3 select that number
 of digipeaters from the first three digipeaters in the 
-.B -d
+.B \--digipath
 list.  SSIDs of 4, 5, 6, or 7, start at the fourth digipeater in
 the list.
 .PP
 .SH "FLOODING ALIASES"
 APRS flooding (WIDEn-n) digipeating works by repeating any received packet
 whose next hop digipeater has a flooding alias (specified with the 
-.B -f
+.B \--flood
 option), and the SSID is 1 or greater.  The SSID is decremented by one,
 and the packet is repeated.  Furthermore, to prevent broadcast storms,
 recently transmitted packets are remembered for a period of time specified
 by the
-.B -k
+.B \--keep
 option and are not repeated if they are heard within that time period.
 .PP
 Unlike conventional digipeating, in which the digipeater callsign/alias is
@@ -348,19 +345,19 @@ any other alias, and does get marked as repeated upon transmission.
 .PP
 .SH "TRACE and TRACEn-n ALIASES"
 \(lqFlooding\(rq Trace aliases (TRACEn-n; 
-.B -F
+.B \--trace
 option) are treated like flooding aliases with the addition that,
 besides decrementing the SSID, the current interface's callsign is
 inserted in front of the trace alias, providing a record-route function.
 \(lqPlain\(rq trace aliases (TRACE; also
-.B -F
+.B \--trace
 option) are simply substituted in the conventional (
-.B -C
+.B \--subst_mycall
 ) manner.
 .PP
 .SH "MULTI PORT OPERATION"
 In single port operation, there is only one interface specified with
-.BI "\-p."
+.BI "\--interface."
 All packets are received and some are retransmitted on the same interface,
 depending on whether they match the criteria for retransmission
 after translation of the digpeater path from one of the APRS-specific
@@ -375,7 +372,7 @@ callsign or one of the aliases for the interface.
 .PP
 The decision to transmit is made by matching the next hop
 callsign/alias with the table of callsigns and aliases you supply to
-.BI "\-p."
+.BI "\--interface."
 .PP
 In multi-port operation, this same technique simply extends to several
 interfaces.  Besides each interface's unique callsign, you can give
@@ -389,15 +386,20 @@ Mic-E packets compressed on one frequency while decompressing them on
 another.
 .SH DUPLICATING PACKETS
 The 
-.B "\-o D"
-option will duplicate a packet received on one interface to all other
-interfaces that have this option set.  The packet is duplicated verbatim
+.B "\--dupe intf"
+option will duplicate a packet received on one interface to the interface
+name given.  If you want to duplicate to several other interface, repeat
+.B "\--dupe intf" 
+for each interface.
+The packet is duplicated verbatim
 as received.  No callsign substitution, flooding or other processing
 or checking such as whether the packet still has any
 non-repeated digipeaters in the list is checked.  This feature is meant
 to provide a means to simply repeat received packets verbatim, on an RF
 interface, for example, out an interface that might be an Ethernet,
-that has APRS client applications running on it.  Digipeating without
+that has APRS client applications running on it (or 
+.I aprsd
+listening on a UDP interface).  Digipeating without
 the normal processing can be dangerous since the digipeater list is never
 used up.  Because of this, packets received on a given interface will
 never be blindly duplicated back to the same interface, regardless of
@@ -418,7 +420,7 @@ decrementing ssid, e.g.:
 .PP
 .SH KILLING LOOPING PACKETS
 .PP
-Kill looping packets (-L option):
+Kill looping packets (\--kill_loops option):
 .nf
 	RELAY*,WIDE,WIDE,WIDE
 	RELAY,N2YGK-7*,WIDE,WIDE
@@ -442,17 +444,18 @@ aprsdigi \\
    --west "N2YGK-2 WB2ZII N2MH-15" \\           # West ...
    --flood "WIDE" \\                            # WIDEn-n flooding
    --trace "TRACE" \\                           # TRACEn-n tracing
-   -DL \\                                       # kill dupes, loops
-   -M \\                                        # do Mic-E translation
-   -C \\                                        # do callsign substituton
+   --kill_dupes \\                              # kill dupes
+   --kill_loops \\                              # kill loops
+   --mice_xlate \\                              # do Mic-E translation
+   --subst_mycall \\                            # do callsign substituton
    --tag " via 147.06 (WB2ZII/R)" \\            # add this tag to rec'd pkts
    --nobud "ax25:NOCALL" \\                     # ignore pkts from NOCALL
    --dupe udp:233.0.14.100 \\			# dupe everything heard 
    --int ax25:sm0:RELAY,WIDE,TRACE \\           # ax25 soundmodem intf
-   -m \\                                        # turn off Mic-E translation
-   -X \\                                        # do X1J4 translation
-   -c \\                                        # turn off callsign subst.
-   -t - \\                                      # clear the tag
+   --nomice_xlate \\                            # turn off Mic-E translation
+   --x1j4_xlate \\                              # do X1J4 translation
+   --nosubst_mycall \\                          # turn off callsign subst.
+   --tag - \\                                   # clear the tag
    --int ax25:ax0:RELAY,WIDE,FOO,TRACE \\       # ax25 ax0 intf.
    --bud - \\                                   # clear the budlist
    --bud ip:128.59.39.150/32 \\                 # allow only from this IP host
@@ -535,14 +538,14 @@ kill dupes: ON loops: ON  testing: OFF
 
 .fi
 .SH BUGS
-.TP 10
 .I Aprsdigi
 should not be confused with a Wes Johnson's DOS program of the same name.
-.TP 10
-This code has most recently been tested with the Linux 2.4.18 kernel
-under Red Hat Linux 8.0.
-.TP 10
-The command line syntax is ugly.
+This code has most recently been tested with the Linux 2.4.20 kernel
+under Red Hat Fedora Core 1.
+The command line syntax is ugly and will eventually be replaced by a 
+configuration file. 
+Short options are deprecated and will dissappear in a future release.
+Please use long options.
 .PP
 .SH FILES
 .BR /etc/ax25/axports
