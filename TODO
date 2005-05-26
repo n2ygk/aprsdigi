@@ -1,11 +1,40 @@
+revised 5/26/2005
+
 aprsdigi:
+  - stuff based on my understanding of fix14439.html and WB4APR's future
+    digi wish list (1 Dec 2004; revised 6 May 2005):
+    - [wishlist 1] Add "--subst_first" to replace the first flooding
+      callsign with mycall.
+    - [wishlist 2] Done: multiple "--trace" has been there for a long time.
+    - [wishlist 3] Add "--max_hops N" to restrict flooding calls to a maximum
+      number of hopes (subtract N-n from WIDEn-N).
+    - [wishlist 4] Done: "--kill_dupes" kills all dupes not just those with
+      flood/trace aliases.
+    - [wishlist 5] Ooops, there is no item 5:-)
+    - [wishlist 6] (bi-directional) routing among several transmitters 
+      is supported by having multiple "--interface" but rig control to switch
+      frequencies is not.  IMHO a busy digi does better to be monitoring each
+      radio fulltime rather than going off-frequency. [6d] (routing all traffic
+      to an alternate channel) is handled by "--dupe".
+    - [fix14439] add "--subst_last" to substitute my call when I am the last
+      digi in the WIDEn-N path (e.g. N counts down to zero or exceeds
+      "--max_hops").
+  - add rate-limiting for lids.  For example, a fixed station transmitting
+    it's position every 30 seconds would have all transmissions ignored
+    for say 15 minutes at which point the next beacon would be digipeated.
+    If the station is moving (info is changing) then don't rate-limit since
+    there's useful new information being transmitted.
+  - add stats collection ala MHEARD
+  - add query responder for MHEARD, etc.
+  - add remote sysop via RF ala the way X1J4 does it with one time passwords
+    or something.
   - document how to use aprsd UDP port support or whether it makes sense
     to do so vs. just running aprsd in parallel.
-  - make aprs-is compatible (see aprsd/doc/q.html) or just use aprsd?
-  - suppress loops/dupes per-interface???  Currently globally.
+  - suppress loops/dupes per-interface???  Currently done globally.
   - make log file list rx/tx port and timestamp?
   - add "tcp:" interface types (both initiator/client and responder/server).
     netcat ./nc -v -u -p 14439 -l | ./nc -v -l -p 14439 localhost 
+  - make aprs-is compatible (see aprsd/doc/q.html) or just use aprsd?
   - add file: and/or tty: intf type to support non-KISS-capable TNCs 
     and broken KISS implentations like TH-D7A (this is getting gross).
   - support more than 8 digipeaters in cooked mode?
@@ -13,20 +42,18 @@ aprsdigi:
   - Combine unproto() and parsecalls().
   - Figure out why I can't just use standard full_sockaddr instead of
     struct ax_calls.
-  - add maxhops for TRACEn-n. (I don't remember what this means!)
   - assure 100% alignment with APRS Protocol Spec 1.0
+  - If and when there's an official updated protocol spec align to that too.
   - add a real config file instead of hokey command line switches.
   - add IPv6 multicast, IPv4 SSM?
   - Implement HOME: (or did this idea die out?)
   - Implement compressed and/or decompressed GPS strings and posits.
-  - Look at my notes from DCC proceedings APRS papers.
+  - Make a new distro rpm and tarball.
 
-mic_e.c:
+mic_e.c: [deprecated - use aprsd]
   - looked at Dale's changes but they *broke* parsing of D7, mic_e pkts???
   - Add PIC-E support: /P>mon
   - Is this necessary anymore given aprsd?
 
-General:
-  - Make a new distro rpm and tarball.
 
 
