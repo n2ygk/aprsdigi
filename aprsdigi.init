@@ -1,0 +1,137 @@
+#!/bin/sh
+# aprsdigi - This is the init script for starting up the APRS digipeater
+#  Also starts beacon.
+#
+# chkconfig: 345 52 52
+# description: starts and stops the aprsdigi APRS digipeater
+# processname: aprsdigi
+# pidfile: /var/run/aprsdigi.pid
+# 
+# Source function library.
+. /etc/init.d/functions
+
+# Find the name of the script
+NAME=`basename $0`
+if [ ${NAME:0:1} = "S" -o ${NAME:0:1} = "K" ]
+then
+	NAME=${NAME:3}
+fi
+
+# For SELinux we need to use 'runuser' not 'su'
+if [ -x /sbin/runuser ]
+then
+    SU=runuser
+else
+    SU=su
+fi
+
+APRSDIGI="/usr/sbin/aprsdigi"
+BEACON="/usr/sbin/beacon"
+APRSDIGI_CONF="/etc/ax25/aprsdigi.conf"
+BEACON_CONF="/etc/ax25/beacon.conf"
+APRSDIGI_PIDFILE="/var/run/aprsdigi.pid"
+BEACON_PIDFILE="/var/run/beacon.pid"
+APRSDIGI_LOCKFILE="/var/lock/subsys/aprsdigi"
+BEACON_LOCKFILE="/var/lock/subsys/beacon"
+
+script_result=0
+
+# start - runs beacon and aprsdigi if conf files are found.
+start_beacon(){
+    BEACON_START="Starting ${NAME} digipeater: "
+    if [ -x "${BEACON}" -a -f "${BEACON_CONF}" ]
+    then
+	echo -n "${BEACON_START}"
+	${BEACON} `cat "${BEACON_CONF}"` && success || failure
+	retval=$?
+	echo
+	[ $retval -eq 0 ] && {
+	    touch ${BEACON_LOCKFILE}
+	    success
+	} || failure
+    fi
+    return $retval
+}
+
+start_aprsdigi(){
+    APRSDIGI_START="Starting ${NAME} digipeater: "
+    if [ -x "${APRSDIGI}" -a -f "${APRSDIGI_CONF}" ]
+    then
+	echo -n "${APRSDIGI_START}"
+	${APRSDIGI} `cat "${APRSDIGI_CONF}"` &
+	retval=$?
+	echo
+	[ $retval -eq 0 ] && {
+	    touch ${APRSDIGI_LOCKFILE}
+	    success
+	} || failure
+    fi
+    return $retval
+}
+
+start(){
+    start_beacon
+    start_aprsdigi   # don't care if beacon failed; aprsdigi should still start
+}
+
+stop_beacon(){
+    echo -n $"Stopping ${NAME} beacon: "
+    killproc ${BEACON}
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f ${BEACON_LOCKFILE}
+    return $retval
+}
+
+stop_aprsdigi(){
+    echo -n $"Stopping ${NAME} digipeater: "
+    killproc ${APRSDIGI}
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f ${APRSDIGI_LOCKFILE}
+    return $retval
+}
+
+stop(){
+    stop_beacon
+    stop_aprsdigi
+}
+
+check_status_aprsdigi(){
+    status ${APRSDIGI}
+}
+
+check_status_beacon(){
+    status ${BEACON}
+}
+
+check_status(){
+    check_status_beacon
+    check_status_aprsdigi
+}
+
+restart(){
+    stop
+    start
+}
+
+case "$1" in
+  start)
+	start
+	;;
+  stop|condstop)
+	stop
+	;;
+  status)
+	check_status
+	script_result=$?
+	;;
+  restart|condrestart|reload|force-reload)
+	restart
+	;;
+  *)
+	echo $"Usage: $0 {start|stop|status|restart|condrestart|condstop|reload|force-reload}"
+	exit 1
+esac
+
+exit $script_result
