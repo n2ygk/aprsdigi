@@ -28,21 +28,22 @@ fi
 APRSDIGI="/usr/sbin/aprsdigi"
 BEACON="/usr/sbin/beacon"
 APRSDIGI_CONF="/etc/ax25/aprsdigi.conf"
-BEACON_CONF="/etc/ax25/beacon.conf"
 APRSDIGI_PIDFILE="/var/run/aprsdigi.pid"
 BEACON_PIDFILE="/var/run/beacon.pid"
 APRSDIGI_LOCKFILE="/var/lock/subsys/aprsdigi"
 BEACON_LOCKFILE="/var/lock/subsys/beacon"
 
+. ${APRSDIGI_CONF}
+
 script_result=0
 
 # start - runs beacon and aprsdigi if conf files are found.
 start_beacon(){
-    BEACON_START="Starting ${NAME} digipeater: "
-    if [ -x "${BEACON}" -a -f "${BEACON_CONF}" ]
+    BEACON_START="Starting ${NAME} beacon: "
+    if [ -x "${BEACON}" -a -f "${APRSDIGI_CONF}" ]
     then
 	echo -n "${BEACON_START}"
-	${BEACON} `cat "${BEACON_CONF}"` && success || failure
+	${BEACON} -d "${BEACON_DEST}" ${BEACON_PORT} "${BEACON_TEXT}" && success || failure
 	retval=$?
 	echo
 	[ $retval -eq 0 ] && {
@@ -58,7 +59,7 @@ start_aprsdigi(){
     if [ -x "${APRSDIGI}" -a -f "${APRSDIGI_CONF}" ]
     then
 	echo -n "${APRSDIGI_START}"
-	${APRSDIGI} `cat "${APRSDIGI_CONF}"` &
+	${APRSDIGI} ${APRSDIGI_OPTS} >/dev/null &
 	retval=$?
 	echo
 	[ $retval -eq 0 ] && {
