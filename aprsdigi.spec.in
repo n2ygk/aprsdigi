@@ -1,8 +1,8 @@
 Summary: AX.25 Automatic Position Reporting System aprsdigi and aprsmon
 Name: aprsdigi
-Version: 2.4.1
+Version: @VERSION@
 Release: 1
-Copyright: GPL
+License: GPLv2+
 Group: Utilities/System
 Packager: Alan Crosswell <n2ygk@weca.org>
 Buildroot: /var/tmp/aprsdigi
@@ -11,6 +11,9 @@ Url: http://www.cloud9.net/~alan/ham/aprsdigi.html
 Requires: libax25 >= 0.0.7
 
 %changelog
+* Fri Aug 29 2009 Alan Crosswell <alan@columbia.edu>
+- Update to use configure to set version
+
 * Fri Dec 28 2001 Alan Crosswell <alan@columbia.edu>
 - Try to make a new RPM, but first need to find RPMs for libax25.
 
@@ -27,7 +30,7 @@ to be used with programs like javAPRS which wish to see a TNC data
 stream over a TCP connection.
 
 %prep
-%setup -q -n aprsdigi-2.4.1
+%setup -q -n aprsdigi-%{PACKAGE_VERSION}
 
 %build
 ./configure
@@ -51,5 +54,4 @@ rm -rf $RPM_BUILD_ROOT
 %doc aprsdigi.lsm
 /usr/sbin/aprsdigi
 /usr/sbin/aprsmon
-/usr/man/man8/aprsdigi.8
-/usr/man/man8/aprsmon.8
+/usr/man/man8
