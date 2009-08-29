@@ -2,7 +2,7 @@
 # aprsdigi - This is the init script for starting up the APRS digipeater
 #  Also starts beacon.
 #
-# chkconfig: 345 52 52
+# chkconfig: 345 52 48
 # description: starts and stops the aprsdigi APRS digipeater
 # processname: aprsdigi
 # pidfile: /var/run/aprsdigi.pid
