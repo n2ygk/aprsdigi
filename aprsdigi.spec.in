@@ -12,7 +12,7 @@ Requires: libax25 >= 0.0.7
 
 %changelog
 * Fri Aug 29 2009 Alan Crosswell <alan@columbia.edu>
-- Update to use configure to set version
+- Update to use configure to set version, install initscript.
 
 * Fri Dec 28 2001 Alan Crosswell <alan@columbia.edu>
 - Try to make a new RPM, but first need to find RPMs for libax25.
@@ -44,6 +44,20 @@ install -D -m 755 aprsdigi.init ${RPM_BUILD_ROOT}/etc/rc.d/init.d/aprsdigi
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+/sbin/chkconfig --add aprsdigi
+
+%preun
+if [ $1 = 0 ]; then
+ /sbin/service aprsdigi stop > /dev/null 2>&1
+ /sbin/chkconfig --del aprsdigi
+fi
+
+%postun
+if [ "$1" -ge "1" ] ; then
+ /sbin/service aprsdigi condrestart >/dev/null 2>&1 || :
+fi
+
 %files
 %doc README
 %doc INSTALL
@@ -57,4 +71,3 @@ rm -rf $RPM_BUILD_ROOT
 /etc/rc.d/init.d/aprsdigi
 /usr/sbin/aprsmon
 /usr/share/man/man8
-
