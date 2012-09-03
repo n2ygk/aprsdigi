@@ -1,0 +1,15 @@
+[Unit]
+Description=APRS digipeater beacon (invokes ax25-tools beacon)
+Wants=aprsdigi.service
+After=soundmodem.service
+
+[Service]
+EnvironmentFile=/etc/ax25/aprsdigi.conf
+ExecStart=/usr/sbin/beacon -d "${BEACON_DEST}" ${BEACON_PORT} "${BEACON_TEXT}"
+StopWhenUnneeded=true
+
+[Install]
+WantedBy=aprsdigi.service
+
+
+

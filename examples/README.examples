@@ -1,0 +1,55 @@
+These are examples of files that I put in /etc/ax25 and elsewhere on the system.
+Typically I build APRS digipeaters using the following pieces:
+
+1. Fedora Core Linux. Most of the necessary amateur radio packages are
+   in the standard or "extras" distros.  Make sure you have a kernel
+   with the optional mkiss.ko kernel module available. The default
+   kernel distro doesn't include it, but there's a
+   kernel-modules-extra RPM that does.
+
+2. Thomas Sailer's soundmodem. This involves getting your soundcard
+   properly configured, etc.  I've successfully used this with
+   motherboard and PCI soundcards on random old PCs and with Dell R200
+   servers (overkill!) and *good-quality* (expensive) USB sound cards
+   (on a fast USB port). I generally build a serial PTT cable to use
+   with soundmodem on newer machines and use an LPT port parallel PTT
+   cable on older machines that have one.
+
+3. My aprsdigi for the RF digipeater. It can actually do multiport RF
+   gatewaying, IPv6 multicast and other crazy stuff you'll never use.
+
+4. Dale Heatherington's aprsd for APRS-IS functionality.
+
+5. beacon (part of ax25-tools) to beacon my digipeaters location. I'm
+   a strong believer in not reinventing the wheel, so I used the
+   existing beacon tool instead of adding beaconing to
+   aprsdigi. Aprsdigi does, however, meet the US FCC requirement to
+   transmit its callsign once every 10 minutes within the last time it
+   transmitted, so if you want to run a stealthy digipeater, feel
+   free to not use beacon!
+
+I use cobbler to automate and replicate building multiple APRS
+digipeaters, D-STAR gateways and so on based on a Fedora Core
+distribution. Aprsdigi will run on any Linux x86 distro, I just happen
+to have been using Fedora Core from back in the day when it was just
+called Red Hat after I switched from Slackware.
+
+The files in this directory are:
+
+README.examples	  this file
+
+aprsdigi.conf	  is sourced by the systemd aprsdigi.service file to
+		  configure aprsdigi and a beacon. It basically sets
+		  some environment variables that contain the aprsdigi
+		  and beacon command line opts.
+
+axports		  is the ax25 port file.
+
+aprsdigi-fc17.ks  is a Cobbler kickstart file which I use to automate
+		  building aprsdigi PCs. It may be useful just to see
+		  which packages I include, what tweaks I make to the
+		  standard Fedora Core distro and so on (e.g. disabling
+		  root ssh login).
+
+
+

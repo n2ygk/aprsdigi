@@ -26,7 +26,9 @@
  * 
  * portions derived from ax25-utils/listen.c
  *
- * Copyright (c) 1996,1997,1999,2001,2002,2003 Alan Crosswell
+ */
+static char copyr[] = "Copyright (c) 1996,1997,1999,2001,2002,2003,2004,2009,2012 Alan Crosswell, n2ygk@weca.org";
+/*
  * Alan Crosswell, N2YGK
  * 144 Washburn Road
  * Briarcliff Manor, NY 10510, USA
@@ -53,8 +55,6 @@
 #include <time.h>
 #include <signal.h>
 #include <errno.h>
-#include <netax25/kernel_ax25.h>
-#include <netax25/kernel_rose.h>
 #include <netax25/ax25.h>
 #include <netax25/axlib.h>
 #include <netax25/axconfig.h>
@@ -2077,7 +2077,7 @@ check_config()
   int n, j;
   struct callsign_list *cl;
   
-  printf("Linux APRS(tm) digipeater\nCopyright (c) 1996,1997,1999,2001,2002,2003,2004 Alan Crosswell, n2ygk@weca.org\n");
+  printf("Linux APRS(tm) digipeater\n%s\n",copyr);
   printf("Version: aprsdigi %s-%s\n",PACKAGE,VERSION);
   printf("This is free software covered under the GNU Public License.\n");
   printf("There is no warranty.  See the file COPYING for details.\n\n");

@@ -1,11 +1,32 @@
-Announcing N2YGK's Linux aprsdigi-2.4.4.		March, 2004
+Announcing N2YGK's Linux aprsdigi-3.5.1.				September 2012
 
-Release 2.4.4 of N2YGK's advanced APRS digipeater is now available for
+Release 3.5.1 of N2YGK's advanced APRS digipeater is now available for
 free under the terms of the GNU Public License (GPL) at
-ftp://ftp.tapr.org/aprssig/linux/aprsdigi-2.4.4.tgz and
 http://aprsdigi.sourceforge.net.
 
-This release has the following new features:
+This release has no new features in the base code from aprsdigi-2.4.5 as the APRS
+protocol and aprsdigi code have been stable and operating in production on
+a number of digipeaters for many years. However, a number of packaging and documentation
+updates have happened:
+
+Added in 3.5.1:
+
+- As usual, the version number has been updated to match the Linux kernel release that 
+  Aprsdigi has been built and tested against. (The code actually hasn't had to change since
+  kernel 2.4 when ax25 stuff stopped changing.)
+- Minor source code changes for netax25 include files no longer required.
+- Updated the RPM SPEC file to build aprsdigi for use on Fedora Core 17 or similar systems.
+  - Replaced SysV init script (/etc/init.d/aprsdigi) with systemd unit files.
+- Added some example configuration files and description of how I build APRS digipeaters
+  in ./examples
+- Documentation here of 2.4.5 changes that weren't documented at the time (shame on me):
+
+Added in 2.4.5:
+- Updated the man page for the "--long" command line options.
+- Fixes SIGUSR1 only working once (bug 916083 reported by KE2LJ)
+- Updates to the TODO list
+
+Added in 2.4.4:
 
 - Aprsdigi is now a sourceforge.net project.  Please visit aprsdigi.sf.net
   and sign up to be a developer or join the users or developers mailing lists.
@@ -44,5 +65,5 @@ Along with these features:
   Examples include all the BAYCOM interfaces (BAYPAC, PICPAR, PICSER, etc.),
   soundcards, 8530 SCC cards, any serial port KISS TNC, etc.
 
-Aprsdigi is Copyright (c) 1996,1997,1999,2001,2002,2003,2004 Alan Crosswell,
+Aprsdigi is Copyright (c) 1996,1997,1999,2001,2002,2003,2004,2009,2012 Alan Crosswell,
   n2ygk@weca.org

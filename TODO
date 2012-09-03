@@ -1,6 +1,8 @@
-revised 5/26/2005
+revised 8/6/2012
 
 aprsdigi:
+  - try to get added to https://fedoraproject.org/wiki/AmateurRadio
+  - Figure out how to get the most current packaged added to Debian, Ubuntu, etc. distros.
   - stuff based on my understanding of fix14439.html and WB4APR's future
     digi wish list (1 Dec 2004; revised 6 May 2005):
     - [wishlist 1] Add "--subst_first" to replace the first flooding

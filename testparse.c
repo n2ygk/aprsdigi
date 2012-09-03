@@ -16,8 +16,6 @@
 #include <time.h>
 #include <signal.h>
 #include <errno.h>
-#include <netax25/kernel_ax25.h>
-#include <netax25/kernel_rose.h>
 #include <netax25/ax25.h>
 #include <netax25/axlib.h>
 #include <netax25/axconfig.h>
