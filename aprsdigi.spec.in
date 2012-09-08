@@ -88,5 +88,6 @@ fi
 /usr/sbin/aprsdigi
 /usr/lib/systemd/system/aprsbeacon.service
 /usr/lib/systemd/system/aprsdigi.service
+/etc/logrotate.d/aprsdigi
 /usr/sbin/aprsmon
 /usr/share/man/man8
