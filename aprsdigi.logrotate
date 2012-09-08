@@ -1,0 +1,8 @@
+/var/log/aprsdigi.log {
+    missingok
+    compress
+    weekly
+    notifempty
+    delaycompress
+}
+

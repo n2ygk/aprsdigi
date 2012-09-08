@@ -1,7 +1,7 @@
 Summary: AX.25 Automatic Position Reporting System aprsdigi and aprsmon
 Name: aprsdigi
 Version: @VERSION@
-Release: 4
+Release: 5
 License: GPLv2+
 Group: Utilities/System
 Packager: Alan Crosswell <n2ygk@weca.org>
@@ -12,10 +12,11 @@ Requires: libax25 >= 0.0.7, systemd
 BuildRequires: systemd-units
 
 %changelog
-* Mon Sep 03 2012 Alan Crosswell <alan@columbia.edu>
+* Sat Sep 08 2012 Alan Crosswell <alan@columbia.edu>
 - Update to reflect hosting at sourceforge.net
 - Track changes to rpm SPEC specs!
 - Add systemd-based aprsdigi.service & aprsbeacon.service and remove aprsdigi.init
+- Add logrotate
 
 * Fri Aug 29 2009 Alan Crosswell <alan@columbia.edu>
 - Update to use configure to set version, install initscript.
@@ -48,6 +49,7 @@ make DESTDIR=$RPM_BUILD_ROOT install
 #install -D -m 755 aprsdigi.init ${RPM_BUILD_ROOT}/etc/rc.d/init.d/aprsdigi
 install -D -m 644 aprsdigi.service ${RPM_BUILD_ROOT}/usr/lib/systemd/system/aprsdigi.service
 install -D -m 644 aprsbeacon.service ${RPM_BUILD_ROOT}/usr/lib/systemd/system/aprsbeacon.service
+install -D -m 644 aprsdigi.logrotate ${RPM_BUILD_ROOT}/etc/logrotate.d/aprsdigi
 
 %clean
 rm -rf $RPM_BUILD_ROOT

@@ -15,7 +15,7 @@ fifowrite_SOURCES = fifowrite.c
 libaprs_a_SOURCES = mic_e.c mic_e.h libax25ext.c libax25ext.h
 man_MANS = aprsdigi.8 aprsmon.8 fiforead.8 fifowrite.8
 HTMLS = aprsdigi.html aprsmon.html fiforead.html fifowrite.html
-noinst_SCRIPTS = $(HTMLS) aprsdigi.spec aprsdigi.init aprsdigi.service aprsbeacon.service missing depcomp mkinstalldirs
+noinst_SCRIPTS = $(HTMLS) aprsdigi.spec aprsdigi.init aprsdigi.service aprsbeacon.service aprsdigi.logrotate missing depcomp mkinstalldirs
 DOCS = aprsdigi.lsm parse_cooked_ax25.pdf parse_cooked_ax25.fig examples/README.examples examples/aprsdigi.conf examples/axports examples/aprsdigi-fc17.ks
 EXTRA_DIST= $(MANS) $(SCRIPTS) $(DOCS)
 
