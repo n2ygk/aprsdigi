@@ -1,7 +1,7 @@
 Summary: AX.25 Automatic Position Reporting System aprsdigi and aprsmon
 Name: aprsdigi
 Version: @VERSION@
-Release: 5
+Release: 6
 License: GPLv2+
 Group: Utilities/System
 Packager: Alan Crosswell <n2ygk@weca.org>
@@ -9,9 +9,12 @@ Buildroot: /var/tmp/aprsdigi
 Source: http://sourceforge.net/projects/aprsdigi/files/aprsdigi/%{version}/aprsdigi-%{version}.tar.gz
 Url: http://aprsdigi.sourceforge.net/
 Requires: libax25 >= 0.0.7, systemd
-BuildRequires: systemd-units
+BuildRequires: systemd-units, libax25-devel
 
 %changelog
+* Sun Sep 23 2012 Alan Crosswell <alan@columbia.edu>
+- add libax25-devel to BuildRequires
+
 * Sat Sep 08 2012 Alan Crosswell <alan@columbia.edu>
 - Update to reflect hosting at sourceforge.net
 - Track changes to rpm SPEC specs!
