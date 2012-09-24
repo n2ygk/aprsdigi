@@ -3,9 +3,7 @@ Name: aprsdigi
 Version: @VERSION@
 Release: 6
 License: GPLv2+
-Group: Utilities/System
-Packager: Alan Crosswell <n2ygk@weca.org>
-Buildroot: /var/tmp/aprsdigi
+Group: Applications/Communications
 Source: http://sourceforge.net/projects/aprsdigi/files/aprsdigi/%{version}/aprsdigi-%{version}.tar.gz
 Url: http://aprsdigi.sourceforge.net/
 Requires: libax25 >= 0.0.7, systemd
@@ -14,6 +12,7 @@ BuildRequires: systemd-units, libax25-devel
 %changelog
 * Sun Sep 23 2012 Alan Crosswell <alan@columbia.edu>
 - add libax25-devel to BuildRequires
+- make the spec file pass rpmlint
 
 * Sat Sep 08 2012 Alan Crosswell <alan@columbia.edu>
 - Update to reflect hosting at sourceforge.net
@@ -49,33 +48,32 @@ make
 %install
 rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install 
-#install -D -m 755 aprsdigi.init ${RPM_BUILD_ROOT}/etc/rc.d/init.d/aprsdigi
-install -D -m 644 aprsdigi.service ${RPM_BUILD_ROOT}/usr/lib/systemd/system/aprsdigi.service
-install -D -m 644 aprsbeacon.service ${RPM_BUILD_ROOT}/usr/lib/systemd/system/aprsbeacon.service
-install -D -m 644 aprsdigi.logrotate ${RPM_BUILD_ROOT}/etc/logrotate.d/aprsdigi
+install -D -m 644 aprsdigi.service ${RPM_BUILD_ROOT}%{_unitdir}/aprsdigi.service
+install -D -m 644 aprsbeacon.service ${RPM_BUILD_ROOT}%{_unitdir}/aprsbeacon.service
+install -D -m 644 aprsdigi.logrotate ${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d/aprsdigi
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
 if [ $1 -eq 1 ] ; then 
- /usr/bin/systemctl enable aprsdigi.service >/dev/null 2>&1 || :
- /usr/bin/systemctl enable aprsbeacon.service >/dev/null 2>&1 || :
+ %{_bindir}/systemctl enable aprsdigi.service >/dev/null 2>&1 || :
+ %{_bindir}/systemctl enable aprsbeacon.service >/dev/null 2>&1 || :
 fi
 
 %preun
 if [ $1 -eq 0 ]; then
- /usr/bin/systemctl -q disable aprsdigi.service >/dev/null 2>&1 || :
- /usr/bin/systemctl -q stop aprsdigi.service >/dev/null 2>&1 || :
- /usr/bin/systemctl -q disable aprsbeacon.service >/dev/null 2>&1 || :
- /usr/bin/systemctl -q stop aprsbeacon.service >/dev/null 2>&1 || :
+ %{_bindir}/systemctl -q disable aprsdigi.service >/dev/null 2>&1 || :
+ %{_bindir}/systemctl -q stop aprsdigi.service >/dev/null 2>&1 || :
+ %{_bindir}/systemctl -q disable aprsbeacon.service >/dev/null 2>&1 || :
+ %{_bindir}/systemctl -q stop aprsbeacon.service >/dev/null 2>&1 || :
 fi
 
 %postun
 if [ $1 -ge 1 ] ; then
- /bin/systemctl daemon-reload >/dev/null 2>&1 || :
- /usr/bin/systemctl -q try-restart aprsdigi.service >/dev/null 2>&1 || :
- /usr/bin/systemctl -q try-estart aprsbeacon.service >/dev/null 2>&1 || :
+ %{_bindir}/systemctl daemon-reload >/dev/null 2>&1 || :
+ %{_bindir}/systemctl -q try-restart aprsdigi.service >/dev/null 2>&1 || :
+ %{_bindir}/systemctl -q try-estart aprsbeacon.service >/dev/null 2>&1 || :
 fi
 
 %files
@@ -88,9 +86,9 @@ fi
 %doc AUTHORS
 %doc aprsdigi.lsm
 %doc examples
-/usr/sbin/aprsdigi
-/usr/lib/systemd/system/aprsbeacon.service
-/usr/lib/systemd/system/aprsdigi.service
-/etc/logrotate.d/aprsdigi
-/usr/sbin/aprsmon
-/usr/share/man/man8
+%{_sbindir}/aprsdigi
+%{_sbindir}/aprsmon
+%{_unitdir}/aprsbeacon.service
+%{_unitdir}/aprsdigi.service
+%{_sysconfdir}/logrotate.d/aprsdigi
+%{_mandir}/man8
