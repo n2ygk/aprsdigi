@@ -55,9 +55,7 @@ static char copyr[] = "Copyright (c) 1996,1997,1999,2001,2002,2003,2004,2009,201
 #include <time.h>
 #include <signal.h>
 #include <errno.h>
-#include <netax25/ax25.h>
-#include <netax25/axlib.h>
-#include <netax25/axconfig.h>
+#include <linux/ax25.h>
 #ifndef AX25_MTU
 #define AX25_MTU 256
 #endif
@@ -1699,7 +1697,7 @@ usage()
   fprintf(stderr," -0 | --no3rdparty   -- perform transparent tunneling (default)\n");
   fprintf(stderr," -o r (R) | --[no]rx           -- do (not) mark interface receive-only\n");
   fprintf(stderr," -o t (T) | --[no]tx           -- do (not) mark interface transmit-only\n");
-  fprintf(stderr," -o s (S) | --[no]txsame       -- do (not) supress retransmission on RX intf.\n");
+  fprintf(stderr," -o s (S) | --[no]txsame       -- do (not) suppress retransmission on RX intf.\n");
   fprintf(stderr," -i | --idinterval   -- seconds between ID transmissions\n");
   fprintf(stderr,"             (Use \"-i 0\" to disable IDs)\n");
   fprintf(stderr," -t | --tag          -- tag text to add to received packets\n");
@@ -2079,7 +2077,7 @@ check_config()
   
   printf("Linux APRS(tm) digipeater\n%s\n",copyr);
   printf("Version: aprsdigi %s-%s\n",PACKAGE,VERSION);
-  printf("This is free software covered under the GNU Public License.\n");
+  printf("This is free software covered under the GNU General Public License.\n");
   printf("There is no warranty.  See the file COPYING for details.\n\n");
 
   config_print(stdout);

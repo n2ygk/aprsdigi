@@ -80,7 +80,7 @@ experimentation and configuration testing.  Do not use it on-air.
 .TP 10
 .BI "\-D \--kill_dupes"
 Suppress Duplicate packets.  Remembers
-duplicate packets for the number of seconds given by the -k option and
+duplicate packets for the number of seconds given by the \-k option and
 will not repeat them more than once.  This reduces conjestion caused
 when several digipeaters that share a common flooding alias (e.g. WIDE)
 have overlapping footprints, causing geometric duplication
@@ -107,11 +107,11 @@ network (e.g. when WIDEn-n is not an option).
 .TP 10
 .BI "\-f \--flood"
 Set flooding alias.  Use \(lq-f WIDE\(rq to enable WIDEn-n flooding.
-Use -f multiple times to define several flooding aliases.
+Use \-f multiple times to define several flooding aliases.
 .TP 10
 .BI "\-F \--trace"
 Set flooding trace callsign.  Use \(lq-F TRACE\(rq to enable TRACE and
-TRACEn-n flooding. Use -F multiple times to define several trace aliases.
+TRACEn-n flooding. Use \-F multiple times to define several trace aliases.
 .TP 10
 .BI "\-k \--keep secs"
 Remember old packets for this long for duplicate packet detection.
@@ -437,37 +437,37 @@ running on two ports.  This is a contrived example that tries to show
 all the features.  Comments to the right describe each feature.
 .nf
 aprsdigi \\
-   --verbose \\                                 # verbose
-   --north "N2YGK-2 WB2ZII WA2YSM-14" \\        # North digi path
-   --south "N2YGK-3 WB2ZII WA2JNF-4" \\         # South ...
-   --east "N2YGK-3 WB2ZII KD1LY" \\             # East ...
-   --west "N2YGK-2 WB2ZII N2MH-15" \\           # West ...
-   --flood "WIDE" \\                            # WIDEn-n flooding
-   --trace "TRACE" \\                           # TRACEn-n tracing
-   --kill_dupes \\                              # kill dupes
-   --kill_loops \\                              # kill loops
-   --mice_xlate \\                              # do Mic-E translation
-   --subst_mycall \\                            # do callsign substituton
-   --tag " via 147.06 (WB2ZII/R)" \\            # add this tag to rec'd pkts
-   --nobud "ax25:NOCALL" \\                     # ignore pkts from NOCALL
-   --dupe udp:233.0.14.100 \\			# dupe everything heard 
-   --int ax25:sm0:RELAY,WIDE,TRACE \\           # ax25 soundmodem intf
-   --nomice_xlate \\                            # turn off Mic-E translation
-   --x1j4_xlate \\                              # do X1J4 translation
-   --nosubst_mycall \\                          # turn off callsign subst.
-   --tag - \\                                   # clear the tag
-   --int ax25:ax0:RELAY,WIDE,FOO,TRACE \\       # ax25 ax0 intf.
-   --bud - \\                                   # clear the budlist
-   --bud ip:128.59.39.150/32 \\                 # allow only from this IP host
-   --int udp:233.0.14.99/12345/16:N2YGK-4,RELAY,WIDE,TRACE \\ # multicast 
-   --int udp:233.0.14.100/12345/16:N2YGK-5	# to this mcast group
+   \-\-verbose \\                                 # verbose
+   \-\-north "N2YGK-2 WB2ZII WA2YSM-14" \\        # North digi path
+   \-\-south "N2YGK-3 WB2ZII WA2JNF-4" \\         # South ...
+   \-\-east "N2YGK-3 WB2ZII KD1LY" \\             # East ...
+   \-\-west "N2YGK-2 WB2ZII N2MH-15" \\           # West ...
+   \-\-flood "WIDE" \\                            # WIDEn-n flooding
+   \-\-trace "TRACE" \\                           # TRACEn-n tracing
+   \-\-kill_dupes \\                              # kill dupes
+   \-\-kill_loops \\                              # kill loops
+   \-\-mice_xlate \\                              # do Mic-E translation
+   \-\-subst_mycall \\                            # do callsign substituton
+   \-\-tag " via 147.06 (WB2ZII/R)" \\            # add this tag to rec'd pkts
+   \-\-nobud "ax25:NOCALL" \\                     # ignore pkts from NOCALL
+   \-\-dupe udp:233.0.14.100 \\                   # dupe everything heard
+   \-\-int ax25:sm0:RELAY,WIDE,TRACE \\           # ax25 soundmodem intf
+   \-\-nomice_xlate \\                            # turn off Mic-E translation
+   \-\-x1j4_xlate \\                              # do X1J4 translation
+   \-\-nosubst_mycall \\                          # turn off callsign subst.
+   \-\-tag - \\                                   # clear the tag
+   \-\-int ax25:ax0:RELAY,WIDE,FOO,TRACE \\       # ax25 ax0 intf.
+   \-\-bud - \\                                   # clear the budlist
+   \-\-bud ip:128.59.39.150/32 \\                 # allow only from this IP host
+   \-\-int udp:233.0.14.99/12345/16:N2YGK-4,RELAY,WIDE,TRACE \\ # multicast
+   \-\-int udp:233.0.14.100/12345/16:N2YGK-5      # to this mcast group
 
 opening UDP socket on 233.0.14.99/12345/16
 UDP address info: family 2 type 2 proto 17 next 0x0
 Linux APRS(tm) digipeater
 Copyright (c) 1996,1997,1999,2001,2002,2003 Alan Crosswell, n2ygk@weca.org
 Version: aprsdigi aprsdigi-2.4.3
-This is free software covered under the GNU Public License.
+This is free software covered under the GNU General Public License.
 There is no warranty.  See the file COPYING for details.
 
 # configuration:

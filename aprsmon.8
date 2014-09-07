@@ -11,7 +11,7 @@ UI text traffic heard by the system.  It is based on
 listen(1).
 .LP
 .B Aprsmon
-collects (-m) 
+collects (\-m)
 or displays standard AX.25 UI text frames in a format similar
 to that output by a standard TNC in "Monitor ON" mode and is intended
 to be used with programs like javAPRS which wish to see a TNC data
@@ -55,7 +55,11 @@ Default is 30.
 .BI "-t title"
 Sets the 
 .I javAPRS
-title string.  Default is "Live data from Linux."
+or
+.I aprsd
+title string.  Default is "Live data from Linux." For use with aprsd the
+format must be something like "aprsmon v2.4.4 padd padb." pada and padb
+can be anything, and are ignored but you *must* have 4 words in all.
 .TP 10
 .BI "-i infofile"
 .I Infofile
@@ -69,7 +73,7 @@ a while.  You will probably want to set up an /etc/rc.d/init.d script for
 this.
 .sp
 .nf
-aprsmon -a -m&
+aprsmon \-a \-m&
 .fi
 .sp
 Add an entry into /etc/services with the port number you
@@ -82,7 +86,7 @@ aprs		14439/tcp	# APRS monitor on 144.39
 Add an entry into /etc/inetd.conf for this service:
 .sp
 .nf
-aprs stream tcp nowait root /usr/sbin/aprsmon aprsmon -a
+aprs stream tcp nowait root /usr/sbin/aprsmon aprsmon \-a
 .fi
 .sp
 To test, simply "telnet localhost aprs".  To use with javAPRS,
@@ -140,7 +144,7 @@ is the type of Mic-Encoder:
 E - TAPR Mic-Encoder
 T - Kenwood TH-D7
 .fi
-.RP
+.sp
 .TP 10
 .BI m
 is the status message number, and
@@ -158,7 +162,7 @@ is the status message number expanded as follows:
 6 -  PRIORITY..
 7 -  EMERGENCY.
 .fi
-.RP
+.sp
 .TP 10
 .BI aaa,bbb,ccc,ddd,eee,fff
 are the values of the telemetry channels.

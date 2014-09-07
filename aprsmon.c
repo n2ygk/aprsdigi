@@ -61,9 +61,7 @@
 #include <time.h>
 #include <signal.h>
 
-#include <netax25/ax25.h>
-#include <netax25/axlib.h>
-#include <netax25/axconfig.h>
+#include <linux/ax25.h>
 
 #ifndef HAVE_LIBAX25_EXTENSIONS
 #include "libax25ext.h"
@@ -188,6 +186,7 @@ int main(int argc, char **argv)
     uname(&me);
     printf("aprsmon>JAVA:javaMSG  :Linux APRS server (%s-%s by Alan Crosswell, N2YGK) on %s running %s %s\r\n",
 	   PACKAGE, VERSION, me.nodename, me.sysname, me.release);
+    printf("# %s\r\n",title);
 #ifdef USE_SHM
     (void) shm_slave(stdout,infofile);
 #endif

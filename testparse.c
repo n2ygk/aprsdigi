@@ -16,9 +16,7 @@
 #include <time.h>
 #include <signal.h>
 #include <errno.h>
-#include <netax25/ax25.h>
-#include <netax25/axlib.h>
-#include <netax25/axconfig.h>
+#include <linux/ax25.h>
 #include <netdb.h>
 #include "libax25ext.h"
 static void print_it(FILE *f,
