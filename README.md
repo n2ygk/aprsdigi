@@ -1,5 +1,5 @@
-Linux aprsdigi and aprsmon.
-Copyright (c) 1996,1997,1998,1999,2001,2002,2003,2004,2009,2012 Alan Crosswell
+# Linux aprsdigi and aprsmon.
+Copyright (c) 1996,1997,1998,1999,2001,2002,2003,2004,2009,2012,2014 Alan Crosswell
 Released under the GNU Public License.  See the file COPYING for details.
 
 Alan Crosswell, N2YGK
@@ -7,7 +7,7 @@ n2ygk@weca.org
 
 The official place where new versions are found is:
 
-   http://aprsdigi.sourceforge.net
+   https://github.com/n2ygk/aprsdigi
 
 Others may mirror this stuff elsewhere, but I only promise that the
 latest will be at the above site.

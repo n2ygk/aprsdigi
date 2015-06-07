@@ -1,13 +1,18 @@
-Announcing N2YGK's Linux aprsdigi-3.5.1.				September 2012
+Announcing N2YGK's Linux aprsdigi-3.5.2.				June 7, 2015
 
-Release 3.5.1 of N2YGK's advanced APRS digipeater is now available for
+Release 3.5.2 of N2YGK's advanced APRS digipeater is now available for
 free under the terms of the GNU Public License (GPL) at
-http://aprsdigi.sourceforge.net.
+https://github.com/n2ygk/aprsdigi.
 
 This release has no new features in the base code from aprsdigi-2.4.5 as the APRS
 protocol and aprsdigi code have been stable and operating in production on
 a number of digipeaters for many years. However, a number of packaging and documentation
 updates have happened:
+
+Changed in 3.5.2:
+
+- Sourcecode management has has been switched from CVS to git and the primary hosting
+  repo changed from sourceforge.net to github.com.
 
 Added in 3.5.1:
 
