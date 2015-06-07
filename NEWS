@@ -13,6 +13,7 @@ Changed in 3.5.2:
 
 - Sourcecode management has has been switched from CVS to git and the primary hosting
   repo changed from sourceforge.net to github.com.
+- bugfix https://github.com/n2ygk/aprsdigi/commit/722bddfd286aeaa18b905637569c38e191b0af46
 
 Added in 3.5.1:
 
