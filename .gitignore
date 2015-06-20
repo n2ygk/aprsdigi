@@ -1,0 +1,14 @@
+Makefile
+Makefile.in
+aclocal.m4
+aprsdigi.spec
+autom4te.cache/
+config.log
+config.status
+configure
+*.o
+*.a
+*~
+.deps/
+.vagrant/
+missing

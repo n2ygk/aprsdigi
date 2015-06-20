@@ -63,6 +63,7 @@ static char copyr[] = "Copyright (c) 1996,1997,1999,2001,2002,2003,2004,2009,201
 
 #include "mic_e.h"
 #include "libax25ext.h"
+#include "netax25/axconfig.h"
 
 #ifndef PACKAGE
 #define PACKAGE "aprsdigi"

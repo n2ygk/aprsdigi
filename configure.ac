@@ -1,13 +1,14 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(aprsshm.h)
-AM_INIT_AUTOMAKE(aprsdigi, 3.5.2)
+AC_INIT([aprsdigi], [3.10.0])
+AC_CONFIG_SRCDIR([aprsshm.h])
+AM_INIT_AUTOMAKE
 AC_PREFIX_DEFAULT(/usr)
 
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_RANLIB
 AC_PROG_INSTALL
-AC_PATH_PROG(MAN2HTML,man2html,.:$PATH)
+AC_PATH_PROG(GROFF,groff,.:$PATH)
 
 dnl Checks for libraries.
 AC_CHECKING(for N2YGK's -lax25 extensions:)

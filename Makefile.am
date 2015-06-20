@@ -20,7 +20,7 @@ DOCS = aprsdigi.lsm parse_cooked_ax25.pdf parse_cooked_ax25.fig examples/README.
 EXTRA_DIST= $(MANS) $(SCRIPTS) $(DOCS)
 
 .8.html: 
-	$(MAN2HTML)  $< >$@
+	$(GROFF) -mandoc -Thtml  $< >$@
 
 .fig.pdf:
 	fig2dev -L pdf $< $@

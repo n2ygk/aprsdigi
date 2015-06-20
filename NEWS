@@ -1,22 +1,25 @@
-Announcing N2YGK's Linux aprsdigi-3.5.2.				June 7, 2015
+Announcing N2YGK's Linux aprsdigi-3.10.0.				June 20, 2015
 
-Release 3.5.2 of N2YGK's advanced APRS digipeater is now available for
-free under the terms of the GNU Public License (GPL) at
-https://github.com/n2ygk/aprsdigi.
+Release 3.10.0 of N2YGK's advanced APRS digipeater is now available for
+free under the terms of the GNU Public License (GPL) at https://github.com/n2ygk/aprsdigi.
 
 This release has no new features in the base code from aprsdigi-2.4.5 as the APRS
 protocol and aprsdigi code have been stable and operating in production on
-a number of digipeaters for many years. However, a number of packaging and documentation
+a number of digipeaters for many years. However, a number of bug fixes, and packaging
 updates have happened:
 
-Changed in 3.5.2:
-
+Changed in 3.10.0:
+- As usual, the version number has been updated to match the Linux kernel release that 
+  Aprsdigi has been built and tested against.
 - Sourcecode management has has been switched from CVS to git and the primary hosting
   repo changed from sourceforge.net to github.com.
-- bugfix https://github.com/n2ygk/aprsdigi/commit/722bddfd286aeaa18b905637569c38e191b0af46
+- bugfix of a longstanding typo, thanks to dcb
+  https://github.com/n2ygk/aprsdigi/commit/722bddfd286aeaa18b905637569c38e191b0af46
+- added lintian and typo corrections from Debian Ham Radio Maintainers
+  https://github.com/n2ygk/aprsdigi/commit/53db4ad43ba4374f8c6a9db1c385fdd00b66b344
+- now builds cleanly without compiler warnings
 
 Added in 3.5.1:
-
 - As usual, the version number has been updated to match the Linux kernel release that 
   Aprsdigi has been built and tested against. (The code actually hasn't had to change since
   kernel 2.4 when ax25 stuff stopped changing.)
@@ -33,7 +36,6 @@ Added in 2.4.5:
 - Updates to the TODO list
 
 Added in 2.4.4:
-
 - Aprsdigi is now a sourceforge.net project.  Please visit aprsdigi.sf.net
   and sign up to be a developer or join the users or developers mailing lists.
 - Short (-s) command line options replaced with long ones (--long).  Short
@@ -71,5 +73,5 @@ Along with these features:
   Examples include all the BAYCOM interfaces (BAYPAC, PICPAR, PICSER, etc.),
   soundcards, 8530 SCC cards, any serial port KISS TNC, etc.
 
-Aprsdigi is Copyright (c) 1996,1997,1999,2001,2002,2003,2004,2009,2012 Alan Crosswell,
+Aprsdigi is Copyright (c) 1996,1997,1999,2001,2002,2003,2004,2009,2012,2015 Alan Crosswell,
   n2ygk@weca.org

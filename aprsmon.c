@@ -62,6 +62,7 @@
 #include <signal.h>
 
 #include <linux/ax25.h>
+#include "netax25/axconfig.h"
 
 #ifndef HAVE_LIBAX25_EXTENSIONS
 #include "libax25ext.h"

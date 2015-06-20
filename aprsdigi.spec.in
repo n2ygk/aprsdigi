@@ -4,12 +4,17 @@ Version: @VERSION@
 Release: 7
 License: GPLv2+
 Group: Applications/Communications
-Source: http://sourceforge.net/projects/aprsdigi/files/aprsdigi/%{version}/aprsdigi-%{version}.tar.gz
+Source: https://github.com/n2ygk/aprsdigi/archive/%{version}.tar.gz
 Url: https://github.com/n2ygk/aprsdigi
-Requires: libax25 >= 0.0.7, systemd
-BuildRequires: systemd-units, libax25-devel
+Requires: libax25 >= 0.0.7, systemd, logrotate
+BuildRequires: systemd-units, libax25-devel, automake, autoconf
 
 %changelog
+* Sat Jun 20 2015 Alan Crosswell <alan@columbia.edu>
+- update to reflect hosting at github.com
+- add automake, autoconf to BuildRequires
+- add logrotate to Requires
+
 * Sun Sep 23 2012 Alan Crosswell <alan@columbia.edu>
 - add libax25-devel to BuildRequires
 - make the spec file pass rpmlint
@@ -42,6 +47,9 @@ stream over a TCP connection.
 %setup -q -n aprsdigi-%{version}
 
 %build
+aclocal
+automake --add-missing
+autoconf
 ./configure
 make
 
