@@ -82,6 +82,13 @@ make
 ```
 
 ## Building RPMs
-more to follow
+Here's what I do to build the RPMs:
+```
+cd
+mkdir -p rpmbuild/SOURCES
+wget -o rpmbuild/SOURCES/aprsdigi-3.10.0.tar.gz https://github.com/n2ygk/aprsdigi/archive/v3.10.0.tar.gz
+rpmbuild -ba rpmbuild/SPECS/aprsdigi.spec
+```
+
 
 

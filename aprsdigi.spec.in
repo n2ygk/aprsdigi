@@ -4,7 +4,7 @@ Version: @VERSION@
 Release: 7
 License: GPLv2+
 Group: Applications/Communications
-Source: https://github.com/n2ygk/aprsdigi/archive/%{version}.tar.gz
+Source: https://github.com/n2ygk/aprsdigi/archive/v%{version}.tar.gz
 Url: https://github.com/n2ygk/aprsdigi
 Requires: libax25 >= 0.0.7, systemd, logrotate
 BuildRequires: systemd-units, libax25-devel, automake, autoconf

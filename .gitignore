@@ -12,3 +12,5 @@ configure
 .deps/
 .vagrant/
 missing
+*.rpm
+*.gz
