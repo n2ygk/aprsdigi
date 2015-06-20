@@ -49,7 +49,7 @@ vagrant box add centos71-puppetlatest-1.0.17 box/virtualbox/centos71-puppetlates
 ### Build a vagrant development server
 Using the CentOS 7.1 image created with packer and boxcutter, now configure a
 [Vagrantfile](Vagrantfile) that uses
-a [shell bootstrap](boostrap-aprsdev.sh) and login:
+a [shell bootstrap](bootstrap-aprsdev.sh) and login:
 ```
 vagrant up
 vagrant ssh
@@ -62,7 +62,7 @@ Welcome to your Packer-built virtual machine.
 Unlike in Fedora Core, the ax25 libraries and tools are not available in any repo
 I was able to find for EPEL. The [linux ax25 "unofficial" distros]
 (https://linuxax25.googlecode.com) do seem to work. See the
-[shell bootstrap](boostrap-aprsdev.sh) for details.
+[shell bootstrap](bootstrap-aprsdev.sh) for details.
 
 ## Building aprsdigi
 _Aprdigi_ (and the RPM SPEC file I use to package it) is built using the [GNU autotools]
