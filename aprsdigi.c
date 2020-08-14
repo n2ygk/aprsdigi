@@ -1050,7 +1050,10 @@ xmit(struct stuff *s, struct interface_list *dupelist)
 	  fclose(of);
       }
       if (Verbose) {
-	fprintf(stderr,"%s: TX: ",l->i->port);
+	char buf[20];
+	time_t tick = time(0);
+	strftime(buf,sizeof(buf),"%T",gmtime(&tick));
+	fprintf(stderr,"%s %s: TX: ",buf,l->i->port);
 	print_it(stderr,&calls,op-(vecl[n]+l->i->taglen),vecl[n]+l->i->taglen);
       }
       ++l->i->stats.tx;
