@@ -793,7 +793,7 @@ rx_flood(struct stuff *s)
     ++s->i->stats.flood;
     if (xmit(s,NULL) < 0) 
       perror("xmit");
-    return 1;
+    result = 1;
   }
   if (Verbose) {
     fprintf(stderr,"Did %s require special flooding handling.\n",
