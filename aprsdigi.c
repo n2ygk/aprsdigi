@@ -205,6 +205,8 @@ static char *Tag = NULL;	/* tag onto end of rx'd posit */
 static int Taglen = 0;
 static int Idinterval = (9*60)+30; /* default to 9:30 */
 static int Keep = 28;		/* seconds to remember for dupe test */
+static int Maxhops = 0;	/* limit direct input packets to this many digipeats */
+
 static int I_flags = 0;		/* interface default flags */
 #define I_NEED_ID    0x01	/* need to ID */
 #define SUBST_MYCALL 0x02	/* replace digi alias w/mycall */
@@ -385,6 +387,7 @@ static int rx_to_me(struct stuff *s);
 static int rx_bud_deny(struct stuff *s);
 static int rx_from_me(struct stuff *s);
 static int rx_ssid(struct stuff *s);
+static int rx_limit(struct stuff *s);
 static int rx_flood(struct stuff *s);
 static int rx_digi(struct stuff *s);
 
@@ -434,6 +437,8 @@ rx_packet(struct interface *i,	/* which interface received on */
   else if (rx_dupe(&s))		/* Is it a killed dupe or loop? */
     return;
   else if (rx_to_me(&s))	/* Addressed to me? */
+    return;
+  else if (rx_limit(&s))	/* Will this packet exceed the digipeat limit */
     return;
   else if (rx_flood(&s))	/* flood special handling */
     return;
@@ -608,6 +613,28 @@ intf_of(ax25_address *callsign)
   return NULL;
 }
 
+/* Does a packet appear to come directly to us from the rf originator */
+static int
+is_direct(struct stuff *s)
+{
+  struct callsign_list *c;
+  int flag=0, digit, n1, n2;
+  if (s->in.ax_next_digi != 0) return 0;
+  c = calltab_entry(&s->in.ax_digi_call[0],&flag);
+  if (!c) 	/* Nothing we recognize or will deal with, but prob. direct */
+     return 1;
+  if ((!flag&C_IS_FLOOD) || (!flag&C_IS_FLOODN)) /* alias, yes we are direct */
+     return 1;
+  digit = ((s->in.ax_digi_call[0].ax25_call[c->floodlen]) & 0xFE)>>1;
+  if ((digit<'0') || digit > '9') return 0; /* Something is very wrong */
+  n1 = digit - 0x30;
+  n2 = (s->in.ax_digi_call[0].ax25_call[ALEN]&SSID)>>1;
+  if (n2<n1) 	/* There's probably been a hop already */
+     return 0;
+
+  return 1;
+}
+
 static int
 rx_to_me(struct stuff *s)
 {
@@ -655,6 +682,60 @@ rx_from_me(struct stuff *s)
   }
   return result;
 }  
+
+/* Does a direct inbound packet request more hops than the limit we set */
+static int
+rx_limit(struct stuff *s)
+{
+  int sum = 0, result = 0, flag=0;
+  struct callsign_list *c;
+  if (!Maxhops) return result;
+  if (!(is_direct(s))) return result;
+  c = calltab_entry(&s->in.ax_digi_call[0],&flag);
+  if (!c) return result;
+  if (Verbose) {
+    fprintf(stderr, "Direct input packet with known via call\n");
+  }
+
+  for (int n=0 ; n < s->in.ax_n_digis; n++) {
+    flag = 0;
+    c = calltab_entry(&s->in.ax_digi_call[n],&flag);
+    if (!c) {
+        sum++;
+	if (Verbose) {
+	   fprintf(stderr, "Call, non flood running total %i\n", ax25_ntoa_pretty(&s->in.ax_digi_call[n]), sum);
+	}
+        continue;
+    }
+    if ((flag&C_IS_FLOOD) && (flag&C_IS_FLOODN)) {
+        sum += (s->in.ax_digi_call[n].ax25_call[ALEN]&SSID)>>1;
+	if (Verbose) {
+	   fprintf(stderr, "Call %s, flag %i, flood running total %i\n", ax25_ntoa_pretty(&s->in.ax_digi_call[n]), flag, sum);
+	}
+    } else {
+	sum++;
+	if (Verbose) {
+	   fprintf(stderr, "Call %s, flag %i, non floodn running total %i\n", ax25_ntoa_pretty(&s->in.ax_digi_call[n]), flag, sum);
+	}
+    }
+  }
+
+  if (Verbose) {
+    fprintf(stderr,"Total hops expected for pkt being received directly %i limit %i\n",
+       sum, Maxhops);
+  }
+  if (sum > Maxhops) {
+     ++s->i->stats.rx_ign;
+     result = 1;
+  }
+
+  if (Verbose) {
+    fprintf(stderr,"Direct input packet%sdropped for too many digipeats requested\n",
+	    result?" ":" not ");
+  }
+
+  return result;
+}
 
 /* 
  * SSID path selection only applies if:
@@ -1398,6 +1479,7 @@ static struct option opts[] = {
   {"digipath",REQD,0,'d'},
   {"tag",REQD,0,'t'},
   {"keep",REQD,0,'k'},
+  {"hops",REQD,0,'H'},
   {"logfile",REQD,0,'l'},
   {"idinterval",REQD,0,'i'},
   {"subst_mycall",NONE,0,'C'},
@@ -1426,7 +1508,7 @@ static struct option opts[] = {
   {"duplicate",REQD,0,O('d')},
   {0,0,0,0}
 };
-static char *optstring = "CcMmXxF:f:n:s:e:w:t:k:l:i:d:p:DLVvT30o:B:b:";
+static char *optstring = "CcMmXxF:f:n:s:e:w:t:k:H:l:i:d:p:DLVvT30o:B:b:";
 
 static void
 do_opts(int argc, char **argv)
@@ -1566,6 +1648,9 @@ do_opts(int argc, char **argv)
       if ((Keep = atoi(optarg)) <= 0)
 	Keep = 28;		/* default keep is 28 */
       break;
+    case 'H':
+      Maxhops = atoi(optarg);
+      break;
     case 'l':
       Logfile = optarg;		/* log digipeated packets */
       break;
@@ -1689,6 +1774,7 @@ usage()
   fprintf(stderr," -f | --flood       -- set Flooding callsign (usually WIDE)\n");
   fprintf(stderr," -F | --trace       -- set Flooding TRACE callsign (usually TRACE)\n");
   fprintf(stderr," -k | --keep        -- seconds of old dupes to remember\n");
+  fprintf(stderr," -H | --hops        -- direct input maximum number of future hops allowed\n");
   fprintf(stderr," -l | --logfile     -- log digipeated packets here\n");
   fprintf(stderr," per-interface options (put *before* each -p as needed):\n");
   fprintf(stderr," -C (-c) | --[no]subst_mycall  -- do (not) perform Mycall substitution\n");
@@ -2133,6 +2219,7 @@ check_config()
   }
   /* flags */
   printf("keep dupes for: %d seconds\n",Keep);
+  printf("maximum number of hops allowed is %d for packets input directly to us\n",Maxhops);
   printf("log file: %s\n",(Logfile)?Logfile:"(none)");
 #define onoff(x) (x)?"ON":"OFF"
   printf("kill dupes: %s loops: %s  testing: %s\n",
