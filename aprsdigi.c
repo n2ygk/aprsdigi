@@ -837,6 +837,10 @@ rx_flood(struct stuff *s)
       fprintf(stderr,"Got a flooding %s route.\n",
 	      ax25_ntoa_pretty(&s->in.ax_digi_call[s->in.ax_next_digi]));
     }
+    if ((Max_wide_n) && (wide > Max_wide_n)) {
+       wide = Max_wide_n;
+       if (Verbose) fprintf(stderr, "Flooding hopcount limited to %d\n", wide);
+    }
 
     /* flooding algorithm always kills dupes.  If kill_dupes
        option was not selected, then do the dupe checking here */
