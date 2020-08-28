@@ -2219,7 +2219,9 @@ check_config()
   }
   /* flags */
   printf("keep dupes for: %d seconds\n",Keep);
-  printf("maximum number of hops allowed is %d for packets input directly to us\n",Maxhops);
+  if (Maxhops) {
+     printf("maximum number of hops allowed is %d for packets input directly to us\n",Maxhops);
+  }
   printf("log file: %s\n",(Logfile)?Logfile:"(none)");
 #define onoff(x) (x)?"ON":"OFF"
   printf("kill dupes: %s loops: %s  testing: %s\n",

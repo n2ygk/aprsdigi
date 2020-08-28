@@ -117,6 +117,14 @@ TRACEn-n flooding. Use \-F multiple times to define several trace aliases.
 Remember old packets for this long for duplicate packet detection.
 Default is 28 seconds.
 .TP 10
+.BI "\-H \--hops digipeats"
+Limit the total number of digipeats a packet that comes to us direct can
+request.
+This value is compared to the sum of the hops computed from the via list.
+Those packets exceeding this value are suppressed.
+Packets relayed to us by other digipeaters are not affected.
+Default is no limit.
+.TP 10
 .BI "\-l \--logfile file"
 Log digipeated packets to this file.
 .SH "PER-INTERFACE OPTIONS"
