@@ -185,6 +185,7 @@ struct stuff {			/* maybe I should learn C++... */
 /* General options: */
 static int Verbose = 0;
 static int Testing = 0;
+static int Maxhops = 0;	/* limit direct input packets to this many digipeats */
 static int Digi_SSID = 0;
 static int Kill_dupes = 0;	/* kill dupes even in conventional mode */
 static int Kill_loops = 0;	/* kill loops */
@@ -205,7 +206,6 @@ static char *Tag = NULL;	/* tag onto end of rx'd posit */
 static int Taglen = 0;
 static int Idinterval = (9*60)+30; /* default to 9:30 */
 static int Keep = 28;		/* seconds to remember for dupe test */
-static int Maxhops = 0;	/* limit direct input packets to this many digipeats */
 
 static int I_flags = 0;		/* interface default flags */
 #define I_NEED_ID    0x01	/* need to ID */
@@ -1650,6 +1650,7 @@ do_opts(int argc, char **argv)
       break;
     case 'H':
       Maxhops = atoi(optarg);
+      if (Maxhops < 0) Maxhops = 0;
       break;
     case 'l':
       Logfile = optarg;		/* log digipeated packets */
