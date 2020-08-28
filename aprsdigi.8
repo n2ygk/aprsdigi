@@ -105,6 +105,11 @@ Set North|South|East|West SSID directional path.
 Set SSID omnidirectional next-hops when operating in a non flooding
 network (e.g. when WIDEn-n is not an option).
 .TP 10
+.BI "\-W \--floodnlimit"
+Limit each flooding alias to this many hops to limit traffic from excessive
+specifications.
+Default is off.
+.TP 10
 .BI "\-f \--flood"
 Set flooding alias.  Use \(lq-f WIDE\(rq to enable WIDEn-n flooding.
 Use \-f multiple times to define several flooding aliases.
