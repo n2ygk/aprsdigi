@@ -235,8 +235,7 @@ static int I_flags = 0;		/* interface default flags */
  *	RELAY*,TRACE3-3
  *	RELAY,N2YGK-7*,TRACE3-2
  *	RELAY,N2YGK-7,WB2ZII*,TRACE3-1
- *	RELAY,N2YGK-7,WB2ZII,N2MH-15*,TRACE3
- *	RELAY,N2YGK-7,WB2ZII,N2MH-15,WA2YSM-14*
+ *	RELAY,N2YGK-7,WB2ZII,N2MH-15*,TRACE3*
  *     (What happens when the digi list gets too long for the AX.25 protocol
  *     appears not to have been considered in this design.  I guess we'll
  *     just insert as many as we can.)
@@ -769,6 +768,9 @@ rx_flood(struct stuff *s)
     s->out = s->in;		/* copy the input header */
     s->out.ax_digi_call[s->out.ax_next_digi].ax25_call[ALEN] &= ~SSID;
     s->out.ax_digi_call[s->out.ax_next_digi].ax25_call[ALEN] |= ((--wide) << 1)&SSID;
+    /* Handle FLOOD-1 -> FLOOD-0 case */
+    if (wide == 0)
+      s->out.ax_digi_call[s->out.ax_next_digi].ax25_call[ALEN] |= REPEATED;
     /* TRACEn-n: insert dummy mycall in front: xmit will put the real one in */
     if ((thisflags&(C_IS_FLOODN|C_IS_TRACE)) == (C_IS_FLOODN|C_IS_TRACE)) {
       int n;
