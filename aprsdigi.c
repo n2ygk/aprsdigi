@@ -190,6 +190,7 @@ static int Digi_SSID = 0;
 static int Kill_dupes = 0;	/* kill dupes even in conventional mode */
 static int Kill_loops = 0;	/* kill loops */
 static int Doing_dupes = 0;	/* dupelist was set on some interface */
+static int Max_wide_n = 0;	/* The limit to wideN-N SSID value */
 static char *Logfile = NULL;
 static ax25_address Aprscall;	/* replace mic-e encoded to-call with this */
 static ax25_address Trace_dummy; /* dummy call for tracen-n substitution */
@@ -836,6 +837,10 @@ rx_flood(struct stuff *s)
       fprintf(stderr,"Got a flooding %s route.\n",
 	      ax25_ntoa_pretty(&s->in.ax_digi_call[s->in.ax_next_digi]));
     }
+    if ((Max_wide_n) && (wide > Max_wide_n)) {
+       wide = Max_wide_n;
+       if (Verbose) fprintf(stderr, "Flooding hopcount limited to %d\n", wide);
+    }
 
     /* flooding algorithm always kills dupes.  If kill_dupes
        option was not selected, then do the dupe checking here */
@@ -1473,6 +1478,7 @@ enum {NONE=no_argument,REQD=required_argument,OPT=optional_argument};
 static struct option opts[] = {
   {"verbose",OPT,0,'v'},
   {"testing",NONE,0,'T'},
+  {"floodnlimit",REQD,0,'W'},
   {"interface",REQD,0,'p'},
   {"port",REQD,0,'p'},
   {"trace",REQD,0,'F'},
@@ -1513,7 +1519,7 @@ static struct option opts[] = {
   {"duplicate",REQD,0,O('d')},
   {0,0,0,0}
 };
-static char *optstring = "CcMmXxF:f:n:s:e:w:t:k:H:l:i:d:p:DLVvT30o:B:b:";
+static char *optstring = "CcMmXxF:f:n:s:e:w:t:k:H:l:i:d:p:W:DLVvT30o:B:b:";
 
 static void
 do_opts(int argc, char **argv)
@@ -1532,6 +1538,10 @@ do_opts(int argc, char **argv)
       break;
     case 'T':
       ++Testing;
+      break;
+    case 'W':
+      Max_wide_n = atoi(optarg);
+      if (Max_wide_n < 0) Max_wide_n = 0;
       break;
     case 'p':			/* -p port[:alias,alias,alias...] */
       if (N_intf >= MAXINTF) {
@@ -1772,6 +1782,7 @@ usage()
   fprintf(stderr," general options:\n");
   fprintf(stderr," -v | --verbose     -- produce verbose debugging output\n");
   fprintf(stderr," -T | --testing     -- test mode: listen to my packets too\n");
+  fprintf(stderr," -W | --floodnlimit -- limit to the maximum hops n in FLOODN-n\n");
   fprintf(stderr," -D | --kill_dupes  -- suppress Duplicate packets\n");
   fprintf(stderr," -L | --kill_loops  -- suppress Looping packets\n");
   fprintf(stderr," -V | --version     -- print program version and exit\n");
@@ -2234,6 +2245,8 @@ check_config()
 	 onoff(Kill_dupes), onoff(Kill_loops), 
 	 onoff(Testing));
 #undef onoff
+  if (Max_wide_n)
+     printf("Maximum value for n in FloodN-n %d\n", Max_wide_n);
   fflush(stdout);
 }
 
