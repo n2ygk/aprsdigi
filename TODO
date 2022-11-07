@@ -38,7 +38,7 @@ aprsdigi:
     netcat ./nc -v -u -p 14439 -l | ./nc -v -l -p 14439 localhost 
   - make aprs-is compatible (see aprsd/doc/q.html) or just use aprsd?
   - add file: and/or tty: intf type to support non-KISS-capable TNCs 
-    and broken KISS implentations like TH-D7A (this is getting gross).
+    and broken KISS implementations like TH-D7A (this is getting gross).
   - support more than 8 digipeaters in cooked mode?
   - digipeat other than UI frames (digi_ned && requested for opentrac pid 99)
   - Combine unproto() and parsecalls().

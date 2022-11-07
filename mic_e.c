@@ -200,7 +200,7 @@ fmt_mic_e(const u_char *t,	/* tocall */
 }
 
 /*
- * here's another APRS device that get's mistreated by some APRS
+ * here's another APRS device that gets mistreated by some APRS
  * implementations:  A TNC2 running TheNet X1J4.
  *
  *          1         2
