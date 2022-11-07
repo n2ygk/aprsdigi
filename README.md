@@ -35,7 +35,7 @@ features implemented include:
 - Single-interface conventional UI-frame digipeating.
 - Cross-interface digipeating (also known as bridging, routing or gatewaying) and one-to-many fanout.
 - Substitution of a digipeated alias with the interface's callsign (typically used to substitute RELAY, WIDE or TRACE aliases).
-- WIDEn-n flooding algorithim.
+- WIDEn-n flooding algorithm.
 - TRACEn-n route recording.
 - Mic-Encoder(tm) support, including SSID-based digipeating, decompression of packets into the conventional APRS MIM format. (The Mic-Encoder compression is also used by other products such as the Kenwood TH-D7A and D700, and TAPR PIC-Encoder).
 - TheNet X1J4 node beacon text translation (removal of the lqTheNet X1J4 (alias)rq prefix from the btext).

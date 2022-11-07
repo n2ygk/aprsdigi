@@ -903,7 +903,7 @@ rx_digi(struct stuff *s)
     if (Verbose) {
       fprintf(stderr,"Got a conventional digipeat.\n");
     }
-      s->out = s->in;	/* copy input list to output unmodifed */
+      s->out = s->in;	/* copy input list to output unmodified */
       s->out.ax_digi_call[s->out.ax_next_digi].ax25_call[ALEN] |= REPEATED;
       ++s->i->stats.digi;
       if (xmit(s,NULL) < 0) 
@@ -1167,7 +1167,7 @@ xmit(struct stuff *s, struct interface_list *dupelist)
  */
 struct pkt {
   struct pkt *next,*prev;
-  time_t t;			/* when recevied */
+  time_t t;			/* when received */
   ax25_address to;		/* destination */
   ax25_address fr;		/* source */
   int l;			/* length of text */
@@ -1305,7 +1305,7 @@ loop_packet(struct ax_calls *calls,u_char *cp,int len)
 
 static void
 cleanup(sig)
-int sig;			/* dont't really care what it was */
+int sig;			/* don't really care what it was */
 {
   if (alarm(0) > 0)		/* an alarm was pending, so... */
     sked_id(NULL);		/*  ID one last time */
