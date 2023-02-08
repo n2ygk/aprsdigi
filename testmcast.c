@@ -6,6 +6,7 @@
 #include <sys/socket.h>
 #include <net/if.h>
 #include <netinet/if_ether.h>
+#include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
@@ -31,6 +32,7 @@ die(char *p, char *s)
   exit(1);
 }
 
+int
 main(int argc,char **argv)
 {
   struct sockaddr_in sin;
