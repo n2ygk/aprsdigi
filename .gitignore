@@ -14,3 +14,12 @@ configure
 missing
 *.rpm
 *.gz
+aprsdigi
+*.html
+aprsmon
+compile
+fiforead
+fifowrite
+mic_e_test
+testmcast
+testparse
