@@ -8,6 +8,7 @@
 #ifndef HAVE_LIBAX25_EXTENSIONS
 
 #include <netax25/ax25.h>
+#include <netax25/axlib.h>
 #include <netrose/rose.h>
 #include "libax25ext.h"
 #include <string.h>

@@ -25,7 +25,8 @@ static void print_it(FILE *f,
 	      int len);
 static void drop_unused_digis(struct ax_calls *);
 
-main()
+int
+main(void)
 {
   unsigned char buf[2048],*bp;
   int buflen, *lp = &buflen;

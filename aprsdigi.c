@@ -45,6 +45,7 @@ static char copyr[] = "Copyright (c) 1996,1997,1999,2001,2002,2003,2004,2009,201
 #include <sys/un.h>
 #include <net/if.h>
 #include <netinet/if_ether.h>
+#include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
@@ -55,7 +56,8 @@ static char copyr[] = "Copyright (c) 1996,1997,1999,2001,2002,2003,2004,2009,201
 #include <time.h>
 #include <signal.h>
 #include <errno.h>
-#include <linux/ax25.h>
+#include <netax25/ax25.h>
+#include <netax25/axlib.h>
 #ifndef AX25_MTU
 #define AX25_MTU 256
 #endif
