@@ -1,3 +1,18 @@
+* Changes in aprsdigi-3.11.0, April, 2024:
+  - Switched to SEMVER version numbers.
+  - #11 C99 compatibility
+  - #12 Fails to build with -Werror=implicit-function-declaration (https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1066209)
+  - various typo fixes
+
+* Changes in aprsdigi-3.10.0, June, 2015:
+  - Sourcecode management has has been switched from CVS to git and the primary hosting
+    repo changed from sourceforge.net to github.com.
+  - bugfix of a longstanding typo, thanks to dcb
+    https://github.com/n2ygk/aprsdigi/commit/722bddfd286aeaa18b905637569c38e191b0af46
+  - added lintian and typo corrections from Debian Ham Radio Maintainers
+    https://github.com/n2ygk/aprsdigi/commit/53db4ad43ba4374f8c6a9db1c385fdd00b66b344
+  - now builds cleanly without compiler warnings
+
 * Changes in aprsdigi-2.6.0, August 2009:
   - added aprsdigi.init script to help automate installation
 
@@ -18,10 +33,10 @@
   - Corrected destination SSID routing to always work, not just for mic-E
     packets (per APRS Spec 1.02 Ch. 3 p. 12)
   - Added 3rd-party tunneling/de-tunneling (-3) per APRS Spec 1.02 Ch 17.
-    I don't understand it, but it's there now.  I use transparent 
+    I don't understand it, but it's there now.  I use transparent
     tunneling (-0)!
   - Really fix the fencepost error that I claimed I fixed in 2.4.2!
-	
+
 * Changes in aprsdigi-2.4.2, June 2002:
   - Fix fencepost error in expansion of TRACEn-n that was causing a seg fault.
 
@@ -31,9 +46,9 @@
 
 * Changes in aprsdigi-2.4.0, November 2001:
   - Apply patches from Hamish Moffatt <hamish@rising.com.au> to update to
-    the latest libax25.  
+    the latest libax25.
   - Change keep default to 28 seconds to match the documented typical
-    value per p.11 of the APRS Protocol Spec 1.0. 
+    value per p.11 of the APRS Protocol Spec 1.0.
   - Don't digipeat packets that my station originated and then got repeated
     back to me (e.g. beacon -d "APRS via WIDE WIDE" should not be digi'd).
     (Thanks for noticing this one Arte.)
@@ -44,7 +59,7 @@
 
 * Changes in aprsdigi-2.0, March 1999:
   General aprsmon and aprsdigi changes:
-  - Fix incorrect order of Mic-E longitude calculation which resulted in, 
+  - Fix incorrect order of Mic-E longitude calculation which resulted in,
     among other errors, a zero longitude displaying as 19060.00W.
   - Corrections and changes to Mic-E -> "MIM" translations as requested
     by Bob Bruninga, including support for Kenwood TH-D7.
