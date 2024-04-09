@@ -20,6 +20,7 @@ int Verbose = 1;
 
 static void die(char *s);
 
+int
 main(int argc, char **argv)
 {
   struct sockaddr_un mysun;
