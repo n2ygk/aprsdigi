@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([aprsdigi], [3.10.0])
+AC_INIT([aprsdigi], [3.11.0])
 AC_CONFIG_SRCDIR([aprsshm.h])
 AM_INIT_AUTOMAKE
 AC_PREFIX_DEFAULT(/usr)
